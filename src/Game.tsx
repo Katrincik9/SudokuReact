@@ -25,10 +25,14 @@ export default function Game() {
     return board
   }
 
+  function createNewGame() {
+    setBoard(createPuzzleBoard())
+  }
+
   return (
     <div className="game">
       <Board board={board} />
-      <GamePanel />
+      <GamePanel onNewGame={createNewGame}/>
     </div>
   )
 }
