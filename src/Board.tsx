@@ -1,19 +1,21 @@
-export default function Board() {
+import type { BoardData, CellData } from "./types/sudoku";
+
+export default function Board({board} : {board : BoardData}) {
   return (
     <div className="board">
-        {Array(9).fill(null).map((_, index) => index + 1).map(row => {
-            return Array(9).fill(null).map((_, index) => index + 1).map(col => {
-                return <Cell key={`${row}-${col}`} />;
-            });
-        })}
+      {board.map((row, rowIndex) => {
+        return row.map((column, columnIndex) => {
+          return <Cell key={`${rowIndex}-${columnIndex}`} cell={column}/>;
+        });
+      })}
     </div>
   )
 }
 
-function Cell() {
+function Cell({cell} : {cell : CellData}) {
   return (
     <div className="board-cell">
-      <div>1</div>
+      <div>{cell.value}</div>
     </div>
   )
 }
