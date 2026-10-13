@@ -76,6 +76,18 @@ body {
   font-size: clamp(32px, 3.5vw, 38px);
 }
 
+.board-cell.selected {
+  background-color: var(--selectedCellColor);
+}
+
+.board-cell:nth-child(-n + 9) {
+  border-top: none;
+}
+
+.board-cell:nth-child(9n) {
+  border-right: none;
+}
+
 .game-panel {
   width: clamp(290px, 30vw, 320px);
   margin-left: 20px;
