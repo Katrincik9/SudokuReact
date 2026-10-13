@@ -4,17 +4,19 @@ import { useState } from 'react';
 import type { BoardData, CellData } from './types/sudoku';
 
 export default function Game() {
-  const [board, setBoard] = useState<BoardData>(createEmptyBoard)
+  const [board, setBoard] = useState<BoardData>(createPuzzleBoard)
 
-  function createEmptyBoard() : BoardData {
+  function createPuzzleBoard() : BoardData {
+    const generatedPuzzleString = window.sudoku.generate("easy");
+    const generatedPuzzleGrid = window.sudoku.board_string_to_grid(generatedPuzzleString);
     let board : BoardData = []
-    Array(9).fill(null).forEach(() => {
+    generatedPuzzleGrid.forEach(row => {
       let boardRow : CellData[] = []
-      Array(9).fill(null).forEach(() => {
+      row.forEach(character => {
         const emptyCell : CellData = {
-          value: null,
+          value: character === "." ? "" : character,
           notes: [],
-          isFixed: false
+          isFixed: character !== "."
         }
         boardRow.push(emptyCell)
       })
