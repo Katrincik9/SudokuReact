@@ -17,7 +17,16 @@ function Cell({cell, onClick, isSelected} : {cell : CellData; onClick: () => voi
   const isEntered = !cell.isFixed && cell.value !== ""
   return (
     <div className={"board-cell " + (isSelected ? "selected " : "") + (isEntered ? "entered" : "")} onClick={onClick}>
-      <div>{cell.value}</div>
+      {cell.value !== "" ? (
+        <div className="cell-value">{cell.value}</div>
+      ) : (
+        <div className="cell-notes">
+          {Array(9).fill(null).map((_, digitIndex) => {
+            const digit = digitIndex + 1
+            return <span key={digit}>{cell.notes.includes(digit) ? digit : ""}</span>
+          })}
+        </div>
+      )}
     </div>
   )
 } 

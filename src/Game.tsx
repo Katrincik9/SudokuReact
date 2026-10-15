@@ -46,7 +46,11 @@ export default function Game() {
             return cell
           }
 
-          return {...cell, value: number.toString()}
+          if (notesMode) {
+            return {...cell, value: "", notes: [...cell.notes, number]}
+          } else {
+            return {...cell, value: number.toString(), notes: []}
+          }
         })
       })
     })
