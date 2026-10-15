@@ -14,8 +14,9 @@ export default function Board({board, onSelectCell, selectedCell} : {board : Boa
 }
 
 function Cell({cell, onClick, isSelected} : {cell : CellData; onClick: () => void; isSelected : boolean}) {
+  const isEntered = !cell.isFixed && cell.value !== ""
   return (
-    <div className={"board-cell " + (isSelected ? "selected" : "")} onClick={onClick}>
+    <div className={"board-cell " + (isSelected ? "selected " : "") + (isEntered ? "entered" : "")} onClick={onClick}>
       <div>{cell.value}</div>
     </div>
   )

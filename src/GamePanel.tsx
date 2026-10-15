@@ -3,12 +3,12 @@ import undoIcon from "./assets/icons/undoIcon.svg";
 import eraseIcon from "./assets/icons/eraseIcon.svg";
 import notesIcon from "./assets/icons/notesIcon.svg";
 
-export default function GamePanel({onNewGame} : {onNewGame: () => void}) {
+export default function GamePanel({onNewGame, onNumberClick} : {onNewGame: () => void; onNumberClick: (number : number) => void}) {
     return (
         <div className="game-panel">
             <TimerSection />
             <GameControls />
-            <Numpad />
+            <Numpad onNumberClick={onNumberClick}/>
             <NewGameButton onNewGame={onNewGame}/>
         </div>
     )
@@ -69,21 +69,21 @@ function GameControlButton({value} : {value : string}) {
     )
 }
 
-function Numpad() {
+function Numpad({onNumberClick} : {onNumberClick : (number : number) => void}) {
     return (
         <div className="numpad">
             {Array(9).fill(null).map((_, index) => {
                 const number = index + 1
-                return <NumpadItem key={`numpad-${number}`} value={number}/>;
+                return <NumpadItem key={`numpad-${number}`} value={number} onClick={() => onNumberClick(number)}/>;
                 }
             )}
         </div>
     )
 }
 
-function NumpadItem({value} : {value : number}) {
+function NumpadItem({value, onClick} : {value : number; onClick : () => void}) {
     return (
-        <button className="numpad-item">{value}</button>
+        <button className="numpad-item" onClick={onClick}>{value}</button>
     )
 }
 

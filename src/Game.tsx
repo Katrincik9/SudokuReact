@@ -5,7 +5,7 @@ import type { BoardData, CellData } from './types/sudoku';
 
 export default function Game() {
   const [board, setBoard] = useState<BoardData>(createPuzzleBoard)
-  const [selectedCell, setselectedCell] = useState({row: 0, column: 0})
+  const [selectedCell, setSelectedCell] = useState({row: 0, column: 0})
 
   function createPuzzleBoard() : BoardData {
     const generatedPuzzleString = window.sudoku.generate("easy");
@@ -14,31 +14,47 @@ export default function Game() {
     generatedPuzzleGrid.forEach(row => {
       let boardRow : CellData[] = []
       row.forEach(character => {
-        const emptyCell : CellData = {
+        const cell : CellData = {
           value: character === "." ? "" : character,
           notes: [],
           isFixed: character !== "."
         }
-        boardRow.push(emptyCell)
+        boardRow.push(cell)
       })
       board.push(boardRow)
     })
     return board
   }
 
-  function createNewGame() {
+  function startNewGame() {
     setBoard(createPuzzleBoard())
-    setselectedCell({row: 0, column: 0})
+    setSelectedCell({row: 0, column: 0})
   }
 
-  function handleSelectCell(row: number, column: number) {
-    setselectedCell({row, column})
+  function handleCellClick(row: number, column: number) {
+    setSelectedCell({row, column})
+  }
+
+  function handleNumberClick(number : number) {
+    const selectedCellRow = selectedCell.row
+    const selectedCellColumn = selectedCell.column
+    setBoard(previousBoard => {
+      return previousBoard.map((row, rowIndex) => {
+        return row.map((cell, columnIndex) => {
+          if (selectedCellRow !== rowIndex || selectedCellColumn !== columnIndex || cell.isFixed) {
+            return cell
+          }
+
+          return {...cell, value: number.toString()}
+        })
+      })
+    })
   }
 
   return (
     <div className="game">
-      <Board board={board} onSelectCell={handleSelectCell} selectedCell={selectedCell}/>
-      <GamePanel onNewGame={createNewGame}/>
+      <Board board={board} onSelectCell={handleCellClick} selectedCell={selectedCell}/>
+      <GamePanel onNewGame={startNewGame} onNumberClick={handleNumberClick}/>
     </div>
   )
 }

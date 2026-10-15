@@ -80,6 +80,10 @@ body {
   background-color: var(--selectedCellColor);
 }
 
+.board-cell.entered {
+  color: var(--numberColor);
+}
+
 .board-cell:nth-child(-n + 9) {
   border-top: none;
 }
