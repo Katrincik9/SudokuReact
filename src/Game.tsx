@@ -6,6 +6,7 @@ import type { BoardData, CellData } from './types/sudoku';
 export default function Game() {
   const [board, setBoard] = useState<BoardData>(createPuzzleBoard)
   const [selectedCell, setSelectedCell] = useState({row: 0, column: 0})
+  const [notesMode, setNotesMode] = useState(false)
 
   function createPuzzleBoard() : BoardData {
     const generatedPuzzleString = window.sudoku.generate("easy");
@@ -51,10 +52,14 @@ export default function Game() {
     })
   }
 
+  function handleNotesClick() {
+    setNotesMode(!notesMode)
+  }
+
   return (
     <div className="game">
       <Board board={board} onSelectCell={handleCellClick} selectedCell={selectedCell}/>
-      <GamePanel onNewGame={startNewGame} onNumberClick={handleNumberClick}/>
+      <GamePanel onNewGame={startNewGame} onNumberClick={handleNumberClick} notesMode={notesMode} onNotesClick={handleNotesClick}/>
     </div>
   )
 }

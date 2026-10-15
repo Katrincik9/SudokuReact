@@ -174,7 +174,7 @@ body {
   border-color: var(--activeBtn);
 }
 
-.game-control-button:last-child::after {
+/* .game-control-button:last-child::after {
   content: "OFF";
   background-color: #adb6c2;
   font-family: "Hauss-Bold", sans-serif;
@@ -190,7 +190,42 @@ body {
   align-items: center;
   font-size: 12px;
   font-weight: 600;
+} */
+
+.game-control-button.notes-off::after, 
+.game-control-button.notes-on::after {
+  font-family: "Hauss-Bold", sans-serif;
+  color:#fff;
+  position: absolute;
+  border-radius: 50px;
+  top: -15%;
+  left: 65%;
+  width: 30px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
 }
+
+.game-control-button.notes-off::after {
+  content: "OFF";
+  background-color: #adb6c2;
+}
+
+.game-control-button.notes-on {
+  border: 2px solid var(--numberColor);
+}
+
+.game-control-button.notes-on:hover {
+  background-color: var(--buttonsBackgroundColor);
+}
+
+.game-control-button.notes-on::after {
+  content: "ON";
+  background-color: var(--numberColor);
+} 
 
 .numpad {
   display: grid;

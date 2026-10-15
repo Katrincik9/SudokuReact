@@ -3,11 +3,11 @@ import undoIcon from "./assets/icons/undoIcon.svg";
 import eraseIcon from "./assets/icons/eraseIcon.svg";
 import notesIcon from "./assets/icons/notesIcon.svg";
 
-export default function GamePanel({onNewGame, onNumberClick} : {onNewGame: () => void; onNumberClick: (number : number) => void}) {
+export default function GamePanel({onNewGame, onNumberClick, notesMode, onNotesClick} : {onNewGame: () => void; onNumberClick: (number : number) => void; notesMode : boolean; onNotesClick: () => void}) {
     return (
         <div className="game-panel">
             <TimerSection />
-            <GameControls />
+            <GameControls notesMode={notesMode} onNotesClick={onNotesClick}/>
             <Numpad onNumberClick={onNumberClick}/>
             <NewGameButton onNewGame={onNewGame}/>
         </div>
@@ -51,19 +51,19 @@ const buttons : GameControlButtonData[] = [
     {task: "notes", icon: notesIcon}
 ];
 
-function GameControls() {
+function GameControls({notesMode, onNotesClick} : {notesMode : boolean; onNotesClick: () => void}) {
     return (
         <div className="game-controls">
             {buttons.map(gameButton => {
-                return <GameControlButton key={`button-${gameButton.task}`} value={gameButton.icon}/>;
+                return <GameControlButton key={`button-${gameButton.task}`} task={gameButton.task} value={gameButton.icon} notesMode={notesMode} onNotesClick={onNotesClick}/>;
             })}
         </div>
     )
 }
 
-function GameControlButton({value} : {value : string}) {
+function GameControlButton({value, task, notesMode, onNotesClick} : {value : string; task : string; notesMode : boolean; onNotesClick: () => void}) {
     return (
-        <button className="game-control-button">
+        <button className={"game-control-button " + (task === "notes" ? (notesMode ? "notes-on" : "notes-off") : "")} onClick={task === "notes" ? onNotesClick : undefined}>
             <img src={value}></img>
         </button>
     )
