@@ -14,10 +14,10 @@ export default function Board({board, onSelectCell, selectedCell} : {board : Boa
 }
 
 function Cell({cell, onClick, isSelected} : {cell : CellData; onClick: () => void; isSelected : boolean}) {
-  const isEntered = !cell.isFixed && cell.value !== ""
+  const isEntered = !cell.isFixed && cell.value !== null
   return (
     <div className={"board-cell " + (isSelected ? "selected " : "") + (isEntered ? "entered" : "")} onClick={onClick}>
-      {cell.value !== "" ? (
+      {cell.value !== null ? (
         <div className="cell-value">{cell.value}</div>
       ) : (
         <div className="cell-notes">

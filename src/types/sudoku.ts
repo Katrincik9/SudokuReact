@@ -1,5 +1,5 @@
 export interface CellData {
-  value: string | "";
+  value: number | null;
   notes: number[];
   isFixed: boolean;
 }

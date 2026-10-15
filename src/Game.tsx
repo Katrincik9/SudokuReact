@@ -16,7 +16,7 @@ export default function Game() {
       let boardRow : CellData[] = []
       row.forEach(character => {
         const cell : CellData = {
-          value: character === "." ? "" : character,
+          value: character === "." ? null : Number(character),
           notes: [],
           isFixed: character !== "."
         }
@@ -47,9 +47,9 @@ export default function Game() {
           }
 
           if (notesMode) {
-            return {...cell, value: "", notes: [...cell.notes, number]}
+            return {...cell, value: null, notes: [...cell.notes, number]}
           } else {
-            return {...cell, value: number.toString(), notes: []}
+            return {...cell, value: number, notes: []}
           }
         })
       })
