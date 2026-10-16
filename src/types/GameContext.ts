@@ -6,7 +6,9 @@ export interface GameContextData {
     notesMode: boolean,
     startNewGame() : void,
     handleNumberClick(number: number) : void,
-    handleNotesClick() : void 
+    handleNotesClick() : void,
+    handleEraseClick() : void,
+    handleUndoClick() : void
 }
 
 export const GameContext = createContext<GameContextData | null>(null)

@@ -44,30 +44,30 @@ function PauseButton() {
 interface GameControlButtonData {
     task : string;
     icon : string;
+    onClick : () => void;
 }
 
-const buttons : GameControlButtonData[] = [
-    {task: "undo", icon: undoIcon},
-    {task: "erase", icon: eraseIcon},
-    {task: "notes", icon: notesIcon}
-];
-
 function GameControls() {
+    const { handleUndoClick, handleEraseClick, handleNotesClick } = useGameContext()
+    const buttons : GameControlButtonData[] = [
+        {task: "undo", icon: undoIcon, onClick: handleUndoClick},
+        {task: "erase", icon: eraseIcon, onClick: handleEraseClick},
+        {task: "notes", icon: notesIcon, onClick: handleNotesClick}
+    ];
     return (
         <div className="game-controls">
             {buttons.map(gameButton => {
-                return <GameControlButton key={`button-${gameButton.task}`} task={gameButton.task} value={gameButton.icon}/>;
+                return <GameControlButton key={`button-${gameButton.task}`} task={gameButton.task} value={gameButton.icon} onClick={gameButton.onClick}/>;
             })}
         </div>
     )
 }
 
-function GameControlButton({value, task} : {value : string; task : string}) {
+function GameControlButton({value, task, onClick} : {value : string; task : string; onClick : () => void}) {
     const gameControlButtonContext = useGameContext()
     const notesMode = gameControlButtonContext.notesMode
-    const onNotesClick = gameControlButtonContext.handleNotesClick
     return (
-        <button className = {`game-control-button ${task === "notes" ? (notesMode ? "notes-on" : "notes-off") : ""}`} onClick={task === "notes" ? onNotesClick : undefined}>
+        <button className = {`game-control-button ${task === "notes" ? (notesMode ? "notes-on" : "notes-off") : ""}`} onClick={onClick}>
             <img src={value}></img>
         </button>
     )

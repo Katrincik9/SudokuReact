@@ -57,6 +57,26 @@ export default function Game() {
     })
   }
 
+  function handleEraseClick() {
+    const selectedCellRow = selectedCell.row
+    const selectedCellColumn = selectedCell.column
+    setBoard(previousBoard => {
+      return previousBoard.map((row, rowIndex) => {
+        return row.map((cell, columnIndex) => {
+          if (selectedCellRow !== rowIndex || selectedCellColumn !== columnIndex || cell.isFixed) {
+            return cell
+          }
+
+          return {...cell, value: null, notes: []}
+        })
+      })
+    })
+  }
+
+  function handleUndoClick() {
+
+  }
+
   function handleNotesClick() {
     setNotesMode(!notesMode)
   }
@@ -67,7 +87,9 @@ export default function Game() {
     notesMode, 
     startNewGame, 
     handleNumberClick, 
-    handleNotesClick
+    handleNotesClick,
+    handleEraseClick, 
+    handleUndoClick
   }
 
   return (
