@@ -76,12 +76,16 @@ body {
   font-size: clamp(32px, 3.5vw, 38px);
 }
 
-.board-cell.selected {
-  background-color: var(--selectedCellColor);
-}
-
 .board-cell.entered {
   color: var(--numberColor);
+}
+
+.board-cell.highlighted {
+  background-color: #e2ebf3;
+}
+
+.board-cell.selected {
+  background-color: var(--selectedCellColor);
 }
 
 .cell-notes {

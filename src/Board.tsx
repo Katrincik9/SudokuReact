@@ -23,8 +23,18 @@ function Cell({cell, row, column} : {cell : CellData; row : number; column : num
   const selectedCell = cellContext.selectedCell
   const handleCellClick = cellContext.handleCellClick
   const isSelected = selectedCell.row === row && selectedCell.column === column
+  const isSameRow = selectedCell.row === row 
+  const isSameColumn = selectedCell.column === column
+  const isSameBox = Math.floor(row / 3) === Math.floor(selectedCell.row / 3) 
+    && Math.floor(column/ 3) === Math.floor(selectedCell.column/ 3)
+  const className = [
+    "board-cell",
+    isSelected && "selected",
+    (isSameRow || isSameColumn || isSameBox) && "highlighted",
+    isEntered && "entered",
+  ].filter(Boolean).join(" ")
   return (
-    <div className={"board-cell " + (isSelected ? "selected " : "") + (isEntered ? "entered" : "")} onClick={() => handleCellClick(row, column)}>
+    <div className={className} onClick={() => handleCellClick(row, column)}>
       {cell.value !== null ? (
         <div className="cell-value">{cell.value}</div>
       ) : (
