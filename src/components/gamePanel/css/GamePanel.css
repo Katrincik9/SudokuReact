@@ -1,0 +1,6 @@
+.game-panel {
+  width: clamp(290px, 30vw, 320px);
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+}

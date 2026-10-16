@@ -1,0 +1,38 @@
+.board-cell {
+  display: grid;
+  place-items: center;
+  border-top: 0.5px solid var(--gridLightBorder);
+  border-right: 0.5px solid var(--gridLightBorder);
+  color: var(--gridDarkBorder);
+  font-size: clamp(32px, 3.5vw, 38px);
+}
+
+.board-cell.entered {
+  color: var(--numberColor);
+}
+
+.board-cell.highlighted {
+  background-color: #e2ebf3;
+}
+
+.board-cell.selected {
+  background-color: var(--selectedCellColor);
+}
+
+.cell-notes {
+  display: grid;
+  place-items: center;
+  width: 80%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  color: var(--noteColor);
+  font-size: clamp(10px, 2.5cqw, 12px);
+}
+
+.board-cell:nth-child(-n + 9) {
+  border-top: none;
+}
+
+.board-cell:nth-child(9n) {
+  border-right: none;
+}

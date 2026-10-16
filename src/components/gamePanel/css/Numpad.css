@@ -1,0 +1,25 @@
+.numpad {
+  display: grid;
+  flex: 1;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 6.5px;
+}
+
+.numpad-item {
+  color: var(--numberColor);
+  cursor: pointer;
+  border: 0;
+  border-radius: 5px;
+  font-family: "Hauss", sans-serif;
+  background-color: var(--buttonsBackgroundColor);
+  font-size: 42px;
+}
+
+.numpad-item:hover {
+  background-color: var(--hoverBtn);
+}
+
+.numpad-item:active {
+  background-color: var(--activeBtn);
+}

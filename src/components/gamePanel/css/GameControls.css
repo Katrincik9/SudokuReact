@@ -1,0 +1,67 @@
+.game-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 19px;
+  margin-bottom: 8px;
+  padding: 0 3%;
+}
+
+.game-control-button {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  background-color: var(--buttonsBackgroundColor);
+  border: 2px solid var(--buttonsBackgroundColor);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.game-control-button img {
+  vertical-align: middle;
+  width: 65%;
+}
+
+.game-control-button:hover {
+  background-color: var(--hoverBtn);
+  border-color: var(--hoverBtn);
+}
+
+.game-control-button:active {
+  background-color: var(--activeBtn);
+  border-color: var(--activeBtn);
+}
+
+.game-control-button.notes-off::after, 
+.game-control-button.notes-on::after {
+  font-family: "Hauss-Bold", sans-serif;
+  color:#fff;
+  position: absolute;
+  border-radius: 50px;
+  top: -15%;
+  left: 65%;
+  width: 30px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.game-control-button.notes-off::after {
+  content: "OFF";
+  background-color: #adb6c2;
+}
+
+.game-control-button.notes-on {
+  border: 2px solid var(--numberColor);
+}
+
+.game-control-button.notes-on:hover {
+  background-color: var(--buttonsBackgroundColor);
+}
+
+.game-control-button.notes-on::after {
+  content: "ON";
+  background-color: var(--numberColor);
+} 

@@ -1,19 +1,8 @@
-import type { BoardData, CellData } from "./types/sudoku";
-import { useGameContext } from "./types/GameContext";
+import { useGameContext } from "../../types/GameContext";
+import type { CellData } from "../../types/sudoku";
+import './css/Cell.css';
 
-export default function Board({board} : {board : BoardData}) {
-  return (
-    <div className="board">
-      {board.map((row, rowIndex) => {
-        return row.map((column, columnIndex) => {
-          return <Cell key={`${rowIndex}-${columnIndex}`} cell={column} row={rowIndex} column={columnIndex}/>;
-        });
-      })}
-    </div>
-  )
-}
-
-function Cell({cell, row, column} : {cell : CellData; row : number; column : number}) {
+export default function Cell({cell, row, column} : {cell : CellData; row : number; column : number}) {
   const isEntered = !cell.isFixed && cell.value !== null
   const {selectedCell, handleCellClick} = useGameContext()
   const isSelected = selectedCell.row === row && selectedCell.column === column

@@ -1,0 +1,41 @@
+.timer-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.timer-display {
+  text-align: end;
+  color: var(--noteColor);
+  font-family: "Hauss-Bold";
+}
+
+.timer-label {
+  display: block;
+  font-size: 13px;
+  letter-spacing: .22px;
+  line-height: 1.23;
+}
+
+.timer-span {
+  display: block;
+  font-size: 15px;
+}
+
+.pause-btn {
+  background-color: var(--buttonsBackgroundColor);
+  height: 30px;
+  width: 30px;
+  margin-left: 4px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.pause-btn img {
+  vertical-align: middle;
+}
+
+.pause-btn:hover {
+  background-color: var(--hoverBtn);
+}

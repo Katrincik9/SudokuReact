@@ -1,0 +1,19 @@
+.new-game-btn {
+  height: 60px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 5px;
+  background-color: #5a7bc0;
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  font-family: "Hauss-Bold", sans-serif;
+}
+
+.new-game-btn:active {
+  background-color: #4363a7;
+}
+
+.new-game-btn:hover {
+  background-color: #7091d5;
+}

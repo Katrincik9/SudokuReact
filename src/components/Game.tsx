@@ -1,8 +1,8 @@
-import Board from './Board'
-import GamePanel from './GamePanel';
+import Board from './board/Board';
+import GamePanel from './gamePanel/GamePanel';
 import { useState } from 'react';
-import type { BoardData, CellData } from './types/sudoku';
-import { GameContext } from './types/GameContext';
+import type { BoardData, CellData } from '../types/sudoku';
+import { GameContext } from '../types/GameContext';
 
 export default function Game() {
   const [board, setBoard] = useState<BoardData>(createPuzzleBoard)

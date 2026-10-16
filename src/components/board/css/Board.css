@@ -1,0 +1,36 @@
+.board {
+  width: clamp(400px, 50vw, 500px);
+  aspect-ratio: 1/1;
+  box-sizing: border-box;
+  border: 2.5px solid var(--gridDarkBorder);
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(9, 1fr);
+  position: relative;
+  container-type: inline-size;
+  border-width: clamp(2px, 0.5vw, 2.5px);
+}
+
+.board::after {
+  content: "";
+  width: 33%;
+  border-left: 2.5px solid var(--gridDarkBorder); 
+  border-right: 2.5px solid var(--gridDarkBorder);    
+  position: absolute;
+  height: 100%;
+  left: 33%;   
+  pointer-events: none;
+  z-index: 1;
+}
+
+.board::before {
+  content: "";
+  height: 33%;
+  border-top: 2.5px solid var(--gridDarkBorder); 
+  border-bottom: 2.5px solid var(--gridDarkBorder);    
+  position: absolute;
+  width: 100%;
+  top: 33%;
+  pointer-events: none;
+  z-index: 1;
+}
