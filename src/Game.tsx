@@ -61,11 +61,20 @@ export default function Game() {
     setNotesMode(!notesMode)
   }
 
+  const contextValues = {
+    selectedCell,
+    handleCellClick,
+    notesMode, 
+    startNewGame, 
+    handleNumberClick, 
+    handleNotesClick
+  }
+
   return (
     <div className="game">
-    <GameContext.Provider value={{selectedCell, handleCellClick}}>
+    <GameContext.Provider value={contextValues}>
       <Board board={board}/>
-      <GamePanel onNewGame={startNewGame} onNumberClick={handleNumberClick} notesMode={notesMode} onNotesClick={handleNotesClick}/>
+      <GamePanel/>
     </GameContext.Provider>
     </div>
   )

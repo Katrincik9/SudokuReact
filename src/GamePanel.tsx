@@ -2,14 +2,15 @@ import pauseIcon from "./assets/icons/pauseIcon.svg";
 import undoIcon from "./assets/icons/undoIcon.svg";
 import eraseIcon from "./assets/icons/eraseIcon.svg";
 import notesIcon from "./assets/icons/notesIcon.svg";
+import { useGameContext } from "./types/GameContext";
 
-export default function GamePanel({onNewGame, onNumberClick, notesMode, onNotesClick} : {onNewGame: () => void; onNumberClick: (number : number) => void; notesMode : boolean; onNotesClick: () => void}) {
+export default function GamePanel() {
     return (
         <div className="game-panel">
             <TimerSection />
-            <GameControls notesMode={notesMode} onNotesClick={onNotesClick}/>
-            <Numpad onNumberClick={onNumberClick}/>
-            <NewGameButton onNewGame={onNewGame}/>
+            <GameControls />
+            <Numpad />
+            <NewGameButton />
         </div>
     )
 }
@@ -51,25 +52,30 @@ const buttons : GameControlButtonData[] = [
     {task: "notes", icon: notesIcon}
 ];
 
-function GameControls({notesMode, onNotesClick} : {notesMode : boolean; onNotesClick: () => void}) {
+function GameControls() {
     return (
         <div className="game-controls">
             {buttons.map(gameButton => {
-                return <GameControlButton key={`button-${gameButton.task}`} task={gameButton.task} value={gameButton.icon} notesMode={notesMode} onNotesClick={onNotesClick}/>;
+                return <GameControlButton key={`button-${gameButton.task}`} task={gameButton.task} value={gameButton.icon}/>;
             })}
         </div>
     )
 }
 
-function GameControlButton({value, task, notesMode, onNotesClick} : {value : string; task : string; notesMode : boolean; onNotesClick: () => void}) {
+function GameControlButton({value, task} : {value : string; task : string}) {
+    const gameControlButtonContext = useGameContext()
+    const notesMode = gameControlButtonContext.notesMode
+    const onNotesClick = gameControlButtonContext.handleNotesClick
     return (
-        <button className={"game-control-button " + (task === "notes" ? (notesMode ? "notes-on" : "notes-off") : "")} onClick={task === "notes" ? onNotesClick : undefined}>
+        <button className = {`game-control-button ${task === "notes" ? (notesMode ? "notes-on" : "notes-off") : ""}`} onClick={task === "notes" ? onNotesClick : undefined}>
             <img src={value}></img>
         </button>
     )
 }
 
-function Numpad({onNumberClick} : {onNumberClick : (number : number) => void}) {
+function Numpad() {
+    const numpadContext = useGameContext()
+    const onNumberClick = numpadContext.handleNumberClick
     return (
         <div className="numpad">
             {Array(9).fill(null).map((_, index) => {
@@ -81,14 +87,16 @@ function Numpad({onNumberClick} : {onNumberClick : (number : number) => void}) {
     )
 }
 
-function NumpadItem({value, onClick} : {value : number; onClick : () => void}) {
+function NumpadItem({value, onClick} : {value : number; onClick: () => void}) {
     return (
         <button className="numpad-item" onClick={onClick}>{value}</button>
     )
 }
 
-function NewGameButton({onNewGame} : {onNewGame: () => void}) {
+function NewGameButton() {
+    const newGameButtonContext = useGameContext()
+    const onNewGameClick = newGameButtonContext.startNewGame
     return (
-        <button className="new-game-btn" onClick={onNewGame}>New Game</button>
+        <button className="new-game-btn" onClick={onNewGameClick}>New Game</button>
     )
 }
