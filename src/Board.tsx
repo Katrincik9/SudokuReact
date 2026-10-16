@@ -1,22 +1,30 @@
+import { useContext } from "react";
 import type { BoardData, CellData } from "./types/sudoku";
+import { GameContext } from "./types/GameContext";
 
-export default function Board({board, onSelectCell, selectedCell} : {board : BoardData; onSelectCell: (row: number, column: number) => void; selectedCell: {row: number, column: number}}) {
+export default function Board({board} : {board : BoardData}) {
   return (
     <div className="board">
       {board.map((row, rowIndex) => {
         return row.map((column, columnIndex) => {
-          const isSelected = selectedCell.row === rowIndex && selectedCell.column === columnIndex
-          return <Cell key={`${rowIndex}-${columnIndex}`} cell={column} onClick={() => onSelectCell(rowIndex, columnIndex)} isSelected={isSelected}/>;
+          return <Cell key={`${rowIndex}-${columnIndex}`} cell={column} row={rowIndex} column={columnIndex}/>;
         });
       })}
     </div>
   )
 }
 
-function Cell({cell, onClick, isSelected} : {cell : CellData; onClick: () => void; isSelected : boolean}) {
+function Cell({cell, row, column} : {cell : CellData; row : number; column : number}) {
   const isEntered = !cell.isFixed && cell.value !== null
+  const cellContext = useContext(GameContext)
+  if (cellContext === null) {
+    throw new Error("No saved context")
+  } 
+  const selectedCell = cellContext.selectedCell
+  const handleCellClick = cellContext.handleCellClick
+  const isSelected = selectedCell.row === row && selectedCell.column === column
   return (
-    <div className={"board-cell " + (isSelected ? "selected " : "") + (isEntered ? "entered" : "")} onClick={onClick}>
+    <div className={"board-cell " + (isSelected ? "selected " : "") + (isEntered ? "entered" : "")} onClick={() => handleCellClick(row, column)}>
       {cell.value !== null ? (
         <div className="cell-value">{cell.value}</div>
       ) : (

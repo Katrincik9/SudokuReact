@@ -2,6 +2,7 @@ import Board from './Board'
 import GamePanel from './GamePanel';
 import { useState } from 'react';
 import type { BoardData, CellData } from './types/sudoku';
+import { GameContext } from './types/GameContext';
 
 export default function Game() {
   const [board, setBoard] = useState<BoardData>(createPuzzleBoard)
@@ -62,8 +63,10 @@ export default function Game() {
 
   return (
     <div className="game">
-      <Board board={board} onSelectCell={handleCellClick} selectedCell={selectedCell}/>
+    <GameContext.Provider value={{selectedCell, handleCellClick}}>
+      <Board board={board}/>
       <GamePanel onNewGame={startNewGame} onNumberClick={handleNumberClick} notesMode={notesMode} onNotesClick={handleNotesClick}/>
+    </GameContext.Provider>
     </div>
   )
 }
