@@ -48,7 +48,7 @@ interface GameControlButtonData {
 }
 
 function GameControls() {
-    const { handleUndoClick, handleEraseClick, handleNotesClick } = useGameContext()
+    const { handleUndoClick, handleEraseClick, handleNotesClick, notesMode } = useGameContext()
     const buttons : GameControlButtonData[] = [
         {task: "undo", icon: undoIcon, onClick: handleUndoClick},
         {task: "erase", icon: eraseIcon, onClick: handleEraseClick},
@@ -57,15 +57,13 @@ function GameControls() {
     return (
         <div className="game-controls">
             {buttons.map(gameButton => {
-                return <GameControlButton key={`button-${gameButton.task}`} task={gameButton.task} value={gameButton.icon} onClick={gameButton.onClick}/>;
+                return <GameControlButton key={`button-${gameButton.task}`} task={gameButton.task} value={gameButton.icon} onClick={gameButton.onClick} notesMode={notesMode}/>;
             })}
         </div>
     )
 }
 
-function GameControlButton({value, task, onClick} : {value : string; task : string; onClick : () => void}) {
-    const gameControlButtonContext = useGameContext()
-    const notesMode = gameControlButtonContext.notesMode
+function GameControlButton({value, task, onClick, notesMode} : {value : string; task : string; onClick : () => void; notesMode : boolean}) {
     return (
         <button className = {`game-control-button ${task === "notes" ? (notesMode ? "notes-on" : "notes-off") : ""}`} onClick={onClick}>
             <img src={value}></img>
@@ -74,13 +72,12 @@ function GameControlButton({value, task, onClick} : {value : string; task : stri
 }
 
 function Numpad() {
-    const numpadContext = useGameContext()
-    const onNumberClick = numpadContext.handleNumberClick
+    const {handleNumberClick} = useGameContext()
     return (
         <div className="numpad">
             {Array(9).fill(null).map((_, index) => {
                 const number = index + 1
-                return <NumpadItem key={`numpad-${number}`} value={number} onClick={() => onNumberClick(number)}/>;
+                return <NumpadItem key={`numpad-${number}`} value={number} onClick={() => handleNumberClick(number)}/>;
                 }
             )}
         </div>
@@ -94,9 +91,8 @@ function NumpadItem({value, onClick} : {value : number; onClick: () => void}) {
 }
 
 function NewGameButton() {
-    const newGameButtonContext = useGameContext()
-    const onNewGameClick = newGameButtonContext.startNewGame
+    const {startNewGame} = useGameContext()
     return (
-        <button className="new-game-btn" onClick={onNewGameClick}>New Game</button>
+        <button className="new-game-btn" onClick={startNewGame}>New Game</button>
     )
 }

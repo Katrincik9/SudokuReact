@@ -1,6 +1,5 @@
-import { useContext } from "react";
 import type { BoardData, CellData } from "./types/sudoku";
-import { GameContext } from "./types/GameContext";
+import { useGameContext } from "./types/GameContext";
 
 export default function Board({board} : {board : BoardData}) {
   return (
@@ -16,12 +15,7 @@ export default function Board({board} : {board : BoardData}) {
 
 function Cell({cell, row, column} : {cell : CellData; row : number; column : number}) {
   const isEntered = !cell.isFixed && cell.value !== null
-  const cellContext = useContext(GameContext)
-  if (cellContext === null) {
-    throw new Error("No saved context")
-  } 
-  const selectedCell = cellContext.selectedCell
-  const handleCellClick = cellContext.handleCellClick
+  const {selectedCell, handleCellClick} = useGameContext()
   const isSelected = selectedCell.row === row && selectedCell.column === column
   const isSameRow = selectedCell.row === row 
   const isSameColumn = selectedCell.column === column
