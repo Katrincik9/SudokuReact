@@ -1,32 +1,14 @@
 import Board from './board/Board';
 import GamePanel from './gamePanel/GamePanel';
 import { useState } from 'react';
-import type { BoardData, CellData } from '../types/sudoku';
+import type { BoardData } from '../types/sudoku';
 import { GameContext } from '../types/GameContext';
+import createPuzzleBoard from '../utils/createPuzzleBoard';
 
 export default function Game() {
   const [board, setBoard] = useState<BoardData>(createPuzzleBoard)
   const [selectedCell, setSelectedCell] = useState({row: 0, column: 0})
   const [notesMode, setNotesMode] = useState(false)
-
-  function createPuzzleBoard() : BoardData {
-    const generatedPuzzleString = window.sudoku.generate("easy");
-    const generatedPuzzleGrid = window.sudoku.board_string_to_grid(generatedPuzzleString);
-    let board : BoardData = []
-    generatedPuzzleGrid.forEach(row => {
-      let boardRow : CellData[] = []
-      row.forEach(character => {
-        const cell : CellData = {
-          value: character === "." ? null : Number(character),
-          notes: [],
-          isFixed: character !== "."
-        }
-        boardRow.push(cell)
-      })
-      board.push(boardRow)
-    })
-    return board
-  }
 
   function startNewGame() {
     setBoard(createPuzzleBoard())
