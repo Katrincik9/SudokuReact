@@ -9,10 +9,12 @@ export default function Game() {
   const [board, setBoard] = useState<BoardData>(createPuzzleBoard)
   const [selectedCell, setSelectedCell] = useState({row: 0, column: 0})
   const [notesMode, setNotesMode] = useState(false)
+  const [history, setHistory] = useState<BoardData[]>([])
 
   function startNewGame() {
     setBoard(createPuzzleBoard())
     setSelectedCell({row: 0, column: 0})
+    setHistory([])
   }
 
   function handleCellClick(row: number, column: number) {
@@ -22,19 +24,20 @@ export default function Game() {
   function handleNumberClick(number : number) {
     const selectedCellRow = selectedCell.row
     const selectedCellColumn = selectedCell.column
+    const selectedCellBeforeEdit = board[selectedCellRow][selectedCellColumn]
+    if (selectedCellBeforeEdit.isFixed) return 
+    setHistory(previousHistory => [...previousHistory, board])
     setBoard(previousBoard => {
-      const cell = previousBoard[selectedCellRow][selectedCellColumn]
-      if (cell.isFixed) return previousBoard
-
       const nextBoard = previousBoard.map((row) => row.map((column) => ({...column})))
-      nextBoard[selectedCellRow][selectedCellColumn] = {...cell, 
+      const previousCell = previousBoard[selectedCellRow][selectedCellColumn]
+      nextBoard[selectedCellRow][selectedCellColumn] = {...previousCell, 
         ...(notesMode
           ? { value: null, 
-              notes : cell.notes.includes(number) 
-                ? cell.notes.filter(note => note !== number) 
-                : [...cell.notes, number]
+              notes : previousCell.notes.includes(number) 
+                ? previousCell.notes.filter(note => note !== number) 
+                : [...previousCell.notes, number]
             }
-          : { value : (cell.value === number) ? null : number, notes: [] })
+          : { value : (previousCell.value === number) ? null : number, notes: [] })
       }
       return nextBoard
     })
@@ -43,12 +46,13 @@ export default function Game() {
   function handleEraseClick() {
     const selectedCellRow = selectedCell.row
     const selectedCellColumn = selectedCell.column
+    const selectedCellBeforeEdit = board[selectedCellRow][selectedCellColumn]
+    if (selectedCellBeforeEdit.isFixed || (selectedCellBeforeEdit.value === null && selectedCellBeforeEdit.notes.length === 0)) return
+    setHistory(previousHistory => [...previousHistory, board])
     setBoard(previousBoard => {
-      const cell = previousBoard[selectedCellRow][selectedCellColumn]
-      if (cell.isFixed || (cell.value === null && cell.notes.length === 0)) return previousBoard
-
       const nextBoard = previousBoard.map((row) => row.map((column) => ({...column})))
-      nextBoard[selectedCellRow][selectedCellColumn] = {...cell, value: null, notes: []}
+      const previousCell = previousBoard[selectedCellRow][selectedCellColumn]
+      nextBoard[selectedCellRow][selectedCellColumn] = {...previousCell, value: null, notes: []}
       return nextBoard;
     })
   }
