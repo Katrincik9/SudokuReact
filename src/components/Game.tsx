@@ -1,7 +1,7 @@
 import Board from './board/Board';
 import GamePanel from './gamePanel/GamePanel';
 import { useState } from 'react';
-import type { BoardData } from '../types/sudoku';
+import type { BoardData, HistoryEntry } from '../types/sudoku';
 import { GameContext } from '../types/GameContext';
 import createPuzzleBoard from '../utils/createPuzzleBoard';
 
@@ -9,7 +9,7 @@ export default function Game() {
   const [board, setBoard] = useState<BoardData>(createPuzzleBoard)
   const [selectedCell, setSelectedCell] = useState({row: 0, column: 0})
   const [notesMode, setNotesMode] = useState(false)
-  const [history, setHistory] = useState<BoardData[]>([])
+  const [history, setHistory] = useState<HistoryEntry[]>([])
 
   function startNewGame() {
     setBoard(createPuzzleBoard())
@@ -26,7 +26,7 @@ export default function Game() {
     const selectedCellColumn = selectedCell.column
     const selectedCellBeforeEdit = board[selectedCellRow][selectedCellColumn]
     if (selectedCellBeforeEdit.isFixed) return 
-    setHistory(previousHistory => [...previousHistory, board])
+    setHistory(previousHistory => [...previousHistory, {board, selectedCell}])
     setBoard(previousBoard => {
       const nextBoard = previousBoard.map((row) => row.map((column) => ({...column})))
       const previousCell = previousBoard[selectedCellRow][selectedCellColumn]
@@ -48,7 +48,7 @@ export default function Game() {
     const selectedCellColumn = selectedCell.column
     const selectedCellBeforeEdit = board[selectedCellRow][selectedCellColumn]
     if (selectedCellBeforeEdit.isFixed || (selectedCellBeforeEdit.value === null && selectedCellBeforeEdit.notes.length === 0)) return
-    setHistory(previousHistory => [...previousHistory, board])
+    setHistory(previousHistory => [...previousHistory, {board, selectedCell}])
     setBoard(previousBoard => {
       const nextBoard = previousBoard.map((row) => row.map((column) => ({...column})))
       const previousCell = previousBoard[selectedCellRow][selectedCellColumn]
@@ -58,7 +58,11 @@ export default function Game() {
   }
 
   function handleUndoClick() {
-
+    if (history.length === 0) return
+    const lastEntry = history[history.length - 1]
+    setBoard(lastEntry.board)
+    setSelectedCell(lastEntry.selectedCell)
+    setHistory(history.slice(0, -1))
   }
 
   function handleNotesClick() {

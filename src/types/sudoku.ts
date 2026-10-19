@@ -5,3 +5,8 @@ export interface CellData {
 }
 
 export type BoardData = CellData[][] 
+
+export type HistoryEntry = {
+  board : BoardData;
+  selectedCell : {row: number; column: number}
+}
