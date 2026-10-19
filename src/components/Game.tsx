@@ -29,9 +29,12 @@ export default function Game() {
       const nextBoard = previousBoard.map((row) => row.map((column) => ({...column})))
       nextBoard[selectedCellRow][selectedCellColumn] = {...cell, 
         ...(notesMode
-          ? { value: null, notes: [...cell.notes, number] }
-          : { value: number, notes: [] }
-        ),
+          ? { value: null, 
+              notes : cell.notes.includes(number) 
+                ? cell.notes.filter(note => note !== number) 
+                : [...cell.notes, number]
+            }
+          : { value : (cell.value === number) ? null : number, notes: [] })
       }
       return nextBoard
     })
@@ -42,7 +45,7 @@ export default function Game() {
     const selectedCellColumn = selectedCell.column
     setBoard(previousBoard => {
       const cell = previousBoard[selectedCellRow][selectedCellColumn]
-      if (cell.isFixed) return previousBoard
+      if (cell.isFixed || (cell.value === null && cell.notes.length === 0)) return previousBoard
 
       const nextBoard = previousBoard.map((row) => row.map((column) => ({...column})))
       nextBoard[selectedCellRow][selectedCellColumn] = {...cell, value: null, notes: []}
