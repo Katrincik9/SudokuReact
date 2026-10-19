@@ -1,6 +1,6 @@
 import Board from './board/Board';
 import GamePanel from './gamePanel/GamePanel';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { BoardData, HistoryEntry } from '../types/sudoku';
 import { GameContext } from '../types/GameContext';
 import createPuzzleBoard from '../utils/createPuzzleBoard';
@@ -10,11 +10,29 @@ export default function Game() {
   const [selectedCell, setSelectedCell] = useState({row: 0, column: 0})
   const [notesMode, setNotesMode] = useState(false)
   const [history, setHistory] = useState<HistoryEntry[]>([])
+  const [paused, setPaused] = useState(false)
+  const [timer, setTimer] = useState(0)
 
   function startNewGame() {
     setBoard(createPuzzleBoard())
     setSelectedCell({row: 0, column: 0})
     setHistory([])
+    setTimer(0)
+    setPaused(false)
+  }
+
+  useEffect(() => {
+    if (paused) return
+    const intervalId = setInterval(() => {
+      setTimer(interval => interval + 1)
+    }, 1000)
+
+    return () => clearInterval(intervalId)
+  }, [paused])
+
+  function pauseGame() {
+    setPaused(!paused)
+    console.log(paused)
   }
 
   function handleCellClick(row: number, column: number) {
@@ -77,11 +95,13 @@ export default function Game() {
     handleNumberClick, 
     handleNotesClick,
     handleEraseClick, 
-    handleUndoClick
+    handleUndoClick, 
+    pauseGame,
+    timer
   }
 
   return (
-    <div className="game">
+    <div className={`game ${paused ? "paused" : ""}`}>
     <GameContext.Provider value={contextValues}>
       <Board board={board}/>
       <GamePanel/>

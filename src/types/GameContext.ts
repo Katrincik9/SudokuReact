@@ -3,12 +3,14 @@ import { createContext, useContext } from "react"
 export interface GameContextData {
     selectedCell : {row: number, column: number},
     handleCellClick(row: number, column: number) : void,
-    notesMode: boolean,
+    notesMode : boolean,
     startNewGame() : void,
     handleNumberClick(number: number) : void,
     handleNotesClick() : void,
     handleEraseClick() : void,
-    handleUndoClick() : void
+    handleUndoClick() : void,
+    pauseGame() : void,
+    timer : number
 }
 
 export const GameContext = createContext<GameContextData | null>(null)
