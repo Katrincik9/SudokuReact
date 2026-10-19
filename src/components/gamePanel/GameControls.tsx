@@ -4,32 +4,37 @@ import notesIcon from "../../assets/icons/notesIcon.svg";
 import { useGameContext } from "../../types/GameContext";
 import "./css/GameControls.css"
 
-interface GameControlButtonData {
-    task : string;
-    icon : string;
-    onClick : () => void;
-}
-
 export default function GameControls() {
     const { handleUndoClick, handleEraseClick, handleNotesClick, notesMode } = useGameContext()
-    const buttons : GameControlButtonData[] = [
-        {task: "undo", icon: undoIcon, onClick: handleUndoClick},
-        {task: "erase", icon: eraseIcon, onClick: handleEraseClick},
-        {task: "notes", icon: notesIcon, onClick: handleNotesClick}
-    ];
     return (
         <div className="game-controls">
-            {buttons.map(gameButton => {
-                return <GameControlButton key={`button-${gameButton.task}`} task={gameButton.task} value={gameButton.icon} onClick={gameButton.onClick} notesMode={notesMode}/>;
-            })}
+            <UndoButton value={undoIcon} onClick={handleUndoClick}/>
+            <EraseButton value={eraseIcon} onClick={handleEraseClick}/>
+            <NotesButton value={notesIcon} notesMode={notesMode} onClick={handleNotesClick}/>
         </div>
     )
 }
 
-function GameControlButton({value, task, onClick, notesMode} : {value : string; task : string; onClick : () => void; notesMode : boolean}) {
-    return (
-        <button className = {`game-control-button ${task === "notes" ? (notesMode ? "notes-on" : "notes-off") : ""}`} onClick={onClick}>
+function UndoButton({value, onClick} : {value : string; onClick : () => void}) {
+   return (
+        <button className = "game-control-button" onClick={onClick}>
             <img src={value}></img>
         </button>
-    )
+    ) 
+}
+
+function EraseButton({value, onClick} : {value : string; onClick : () => void}) {
+   return (
+        <button className = "game-control-button" onClick={onClick}>
+            <img src={value}></img>
+        </button>
+    ) 
+}
+
+function NotesButton({value, onClick, notesMode} : {value : string; onClick : () => void; notesMode : boolean}) {
+   return (
+        <button className = {`game-control-button ${notesMode ? "notes-on" : "notes-off"}`} onClick={onClick}>
+            <img src={value}></img>
+        </button>
+    ) 
 }
