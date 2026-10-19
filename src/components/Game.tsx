@@ -23,19 +23,17 @@ export default function Game() {
     const selectedCellRow = selectedCell.row
     const selectedCellColumn = selectedCell.column
     setBoard(previousBoard => {
-      return previousBoard.map((row, rowIndex) => {
-        return row.map((cell, columnIndex) => {
-          if (selectedCellRow !== rowIndex || selectedCellColumn !== columnIndex || cell.isFixed) {
-            return cell
-          }
+      const cell = previousBoard[selectedCellRow][selectedCellColumn]
+      if (cell.isFixed) return previousBoard
 
-          if (notesMode) {
-            return {...cell, value: null, notes: [...cell.notes, number]}
-          } else {
-            return {...cell, value: number, notes: []}
-          }
-        })
-      })
+      const nextBoard = previousBoard.map((row) => row.map((column) => ({...column})))
+      nextBoard[selectedCellRow][selectedCellColumn] = {...cell, 
+        ...(notesMode
+          ? { value: null, notes: [...cell.notes, number] }
+          : { value: number, notes: [] }
+        ),
+      }
+      return nextBoard
     })
   }
 
@@ -43,15 +41,12 @@ export default function Game() {
     const selectedCellRow = selectedCell.row
     const selectedCellColumn = selectedCell.column
     setBoard(previousBoard => {
-      return previousBoard.map((row, rowIndex) => {
-        return row.map((cell, columnIndex) => {
-          if (selectedCellRow !== rowIndex || selectedCellColumn !== columnIndex || cell.isFixed) {
-            return cell
-          }
+      const cell = previousBoard[selectedCellRow][selectedCellColumn]
+      if (cell.isFixed) return previousBoard
 
-          return {...cell, value: null, notes: []}
-        })
-      })
+      const nextBoard = previousBoard.map((row) => row.map((column) => ({...column})))
+      nextBoard[selectedCellRow][selectedCellColumn] = {...cell, value: null, notes: []}
+      return nextBoard;
     })
   }
 
