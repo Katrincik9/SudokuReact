@@ -1,7 +1,7 @@
 import Board from './board/Board';
 import GamePanel from './gamePanel/GamePanel';
 import { useEffect, useState } from 'react';
-import type { BoardData, HistoryEntry } from '../types/sudoku';
+import type { BoardData, CellData, HistoryEntry } from '../types/sudoku';
 import { GameContext } from '../types/GameContext';
 import createPuzzleBoard from '../utils/createPuzzleBoard';
 import type { MouseEvent } from 'react'
@@ -41,39 +41,37 @@ export default function Game() {
   }
 
   function handleNumberClick(number : number) {
-    const selectedCellRow = selectedCell.row
-    const selectedCellColumn = selectedCell.column
-    const selectedCellBeforeEdit = board[selectedCellRow][selectedCellColumn]
-    if (selectedCellBeforeEdit.isFixed) return 
-    setHistory(previousHistory => [...previousHistory, {board, selectedCell}])
-    setBoard(previousBoard => {
-      const nextBoard = previousBoard.map((row) => row.map((column) => ({...column})))
-      const previousCell = previousBoard[selectedCellRow][selectedCellColumn]
-      nextBoard[selectedCellRow][selectedCellColumn] = {...previousCell, 
-        ...(notesMode
-          ? { value: null, 
-              notes : previousCell.notes.includes(number) 
-                ? previousCell.notes.filter(note => note !== number) 
-                : [...previousCell.notes, number]
-            }
-          : { value : (previousCell.value === number) ? null : number, notes: [] })
-      }
-      return nextBoard
-    })
+    const previousCell = board[selectedCell.row][selectedCell.column]
+    const newCell = {...previousCell, 
+      ...(notesMode
+        ? { value: null, 
+            notes : previousCell.notes.includes(number) 
+              ? previousCell.notes.filter(note => note !== number) 
+              : [...previousCell.notes, number]
+          }
+        : { value : (previousCell.value === number) ? null : number, notes: [] })
+    }
+    updateBoardCell(newCell)
   }
 
   function handleEraseClick() {
-    const selectedCellRow = selectedCell.row
-    const selectedCellColumn = selectedCell.column
-    const selectedCellBeforeEdit = board[selectedCellRow][selectedCellColumn]
-    if (selectedCellBeforeEdit.isFixed || (selectedCellBeforeEdit.value === null && selectedCellBeforeEdit.notes.length === 0)) return
-    setHistory(previousHistory => [...previousHistory, {board, selectedCell}])
-    setBoard(previousBoard => {
-      const nextBoard = previousBoard.map((row) => row.map((column) => ({...column})))
-      const previousCell = previousBoard[selectedCellRow][selectedCellColumn]
-      nextBoard[selectedCellRow][selectedCellColumn] = {...previousCell, value: null, notes: []}
-      return nextBoard;
-    })
+    const previousCell = board[selectedCell.row][selectedCell.column]
+    const newCell = {...previousCell, value: null, notes: []}
+    updateBoardCell(newCell)
+  }
+
+  function updateBoardCell(updatedCell : CellData) {
+    const { row, column } = selectedCell
+    const currentCell = board[row][column]
+    if (currentCell.isFixed) return
+    if (currentCell.value === updatedCell.value && currentCell.notes.length === updatedCell.notes.length) return
+    setHistory(previousHistory => [...previousHistory, { board, selectedCell }])
+    
+    const previousBoard = [...board]
+    const selectedRow = [...previousBoard[row]]
+    selectedRow[column] = updatedCell
+    previousBoard[row] = selectedRow
+    setBoard(previousBoard)
   }
 
   function handleUndoClick() {
