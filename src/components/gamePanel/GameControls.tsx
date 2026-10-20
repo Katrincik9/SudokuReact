@@ -5,36 +5,38 @@ import { useGameContext } from "../../types/GameContext";
 import "./css/GameControls.css"
 
 export default function GameControls() {
-    const { handleUndoClick, handleEraseClick, handleNotesClick, notesMode } = useGameContext()
     return (
         <div className="game-controls">
-            <UndoButton value={undoIcon} onClick={handleUndoClick}/>
-            <EraseButton value={eraseIcon} onClick={handleEraseClick}/>
-            <NotesButton value={notesIcon} notesMode={notesMode} onClick={handleNotesClick}/>
+            <UndoButton/>
+            <EraseButton/>
+            <NotesButton/>
         </div>
     )
 }
 
-function UndoButton({value, onClick} : {value : string; onClick : () => void}) {
-   return (
-        <button className = "game-control-button" onClick={onClick}>
-            <img src={value}></img>
+function UndoButton() {
+    const { handleUndoClick } = useGameContext()
+    return (
+        <button className = "game-control-button" onClick={handleUndoClick}>
+            <img src={undoIcon}></img>
         </button>
     ) 
 }
 
-function EraseButton({value, onClick} : {value : string; onClick : () => void}) {
-   return (
-        <button className = "game-control-button" onClick={onClick}>
-            <img src={value}></img>
+function EraseButton() {
+    const { handleEraseClick } = useGameContext()
+    return (
+        <button className = "game-control-button" onClick={handleEraseClick}>
+            <img src={eraseIcon}></img>
         </button>
     ) 
 }
 
-function NotesButton({value, onClick, notesMode} : {value : string; onClick : () => void; notesMode : boolean}) {
-   return (
-        <button className = {`game-control-button ${notesMode ? "notes-on" : "notes-off"}`} onClick={onClick}>
-            <img src={value}></img>
+function NotesButton() {
+    const { handleNotesClick, notesMode } = useGameContext()
+    return (
+        <button className = {`game-control-button ${notesMode ? "notes-on" : "notes-off"}`} onClick={handleNotesClick}>
+            <img src={notesIcon}></img>
         </button>
     ) 
 }
