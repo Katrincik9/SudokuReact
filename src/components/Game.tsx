@@ -96,6 +96,7 @@ export default function Game() {
   }
 
   const contextValues = {
+    board,
     selectedCell,
     handleCellClick,
     notesMode, 
@@ -105,13 +106,14 @@ export default function Game() {
     handleEraseClick, 
     handleUndoClick, 
     togglePauseGame,
-    timer
+    timer,
+    paused
   }
 
   return (
     <div className={`game ${paused ? "paused" : ""}`} onClickCapture={handleClickCapture}>
     <GameContext.Provider value={contextValues}>
-      <Board board={board}/>
+      <Board/>
       <GamePanel/>
     </GameContext.Provider>
     </div>
