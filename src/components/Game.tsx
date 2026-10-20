@@ -42,7 +42,7 @@ export default function Game() {
 
   function handleNumberClick(number : number) {
     const previousCell = board[selectedCell.row][selectedCell.column]
-    const newCell = {...previousCell, 
+    const newCellData = {...previousCell, 
       ...(notesMode
         ? { value: null, 
             notes : previousCell.notes.includes(number) 
@@ -51,16 +51,16 @@ export default function Game() {
           }
         : { value : (previousCell.value === number) ? null : number, notes: [] })
     }
-    updateBoardCell(newCell)
+    updateSelectedCell(newCellData)
   }
 
   function handleEraseClick() {
     const previousCell = board[selectedCell.row][selectedCell.column]
-    const newCell = {...previousCell, value: null, notes: []}
-    updateBoardCell(newCell)
+    const newCellData = {...previousCell, value: null, notes: []}
+    updateSelectedCell(newCellData)
   }
 
-  function updateBoardCell(updatedCell : CellData) {
+  function updateSelectedCell(updatedCell : CellData) {
     const { row, column } = selectedCell
     const currentCell = board[row][column]
     if (currentCell.isFixed) return
@@ -87,8 +87,8 @@ export default function Game() {
   }
   
   function handleClickCapture(event : MouseEvent<HTMLDivElement>) {
-    if (!paused || !(event.target instanceof Element)) return
     const target = event.target
+    if (!paused || !(target instanceof Element)) return
     if (target.closest(".new-game-btn")) return
     if (!target.closest(".board, button")) return
     event.stopPropagation()

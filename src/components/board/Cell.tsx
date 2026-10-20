@@ -11,7 +11,8 @@ export default function Cell({cell, row, column} : {cell : CellData; row : numbe
   const isSameColumn = selectedCell.column === column
   const isSameBox = Math.floor(row / 3) === Math.floor(selectedCell.row / 3) 
     && Math.floor(column/ 3) === Math.floor(selectedCell.column/ 3)
-  const isSameValue = board[selectedCell.row][selectedCell.column].value === cell.value
+  const selectedCellValue = board[selectedCell.row][selectedCell.column].value
+  const isSameValue = selectedCellValue !== null && selectedCellValue === cell.value
   const className = [
     "board-cell",
     isSelected && "selected",
