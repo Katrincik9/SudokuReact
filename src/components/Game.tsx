@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import type { BoardData, HistoryEntry } from '../types/sudoku';
 import { GameContext } from '../types/GameContext';
 import createPuzzleBoard from '../utils/createPuzzleBoard';
+import type { MouseEvent } from 'react'
 
 export default function Game() {
   const [board, setBoard] = useState<BoardData>(createPuzzleBoard)
@@ -30,7 +31,7 @@ export default function Game() {
     return () => clearInterval(intervalId)
   }, [paused])
 
-  function pauseGame() {
+  function togglePauseGame() {
     setPaused(!paused)
     console.log(paused)
   }
@@ -86,6 +87,13 @@ export default function Game() {
   function handleNotesClick() {
     setNotesMode(!notesMode)
   }
+  
+  function handleClickCapture(event : MouseEvent<HTMLDivElement>) {
+    if (!paused) return
+    if (event.target instanceof Element && event.target.closest(".new-game-btn")) return
+    event.stopPropagation()
+    setPaused(false)
+  }
 
   const contextValues = {
     selectedCell,
@@ -96,12 +104,12 @@ export default function Game() {
     handleNotesClick,
     handleEraseClick, 
     handleUndoClick, 
-    pauseGame,
+    togglePauseGame,
     timer
   }
 
   return (
-    <div className={`game ${paused ? "paused" : ""}`}>
+    <div className={`game ${paused ? "paused" : ""}`} onClickCapture={handleClickCapture}>
     <GameContext.Provider value={contextValues}>
       <Board board={board}/>
       <GamePanel/>

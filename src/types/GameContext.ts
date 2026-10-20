@@ -9,7 +9,7 @@ export interface GameContextData {
     handleNotesClick() : void,
     handleEraseClick() : void,
     handleUndoClick() : void,
-    pauseGame() : void,
+    togglePauseGame() : void,
     timer : number
 }
 

@@ -24,9 +24,9 @@ function TimerDisplay() {
 } 
 
 function PauseButton() {
-    const {pauseGame} = useGameContext()
+    const {togglePauseGame} = useGameContext()
     return (
-        <button className="pause-btn" onClick={pauseGame}>
+        <button className="pause-btn" onClick={togglePauseGame}>
             <img src={pauseIcon}></img>
         </button>
     )

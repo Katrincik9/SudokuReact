@@ -36,3 +36,11 @@
 .board-cell:nth-child(9n) {
   border-right: none;
 }
+
+.game.paused .board-cell > div {
+  display: none;
+}
+
+.game.paused .board-cell {
+  background-color: transparent;
+}
