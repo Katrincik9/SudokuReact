@@ -19,6 +19,10 @@
   background-color: var(--selectedCellColor);
 }
 
+.board-cell.same-value {
+  background-color: #c3d7ea;
+}
+
 .cell-notes {
   display: grid;
   place-items: center;
