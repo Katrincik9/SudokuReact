@@ -89,8 +89,10 @@ export default function Game() {
   }
   
   function handleClickCapture(event : MouseEvent<HTMLDivElement>) {
-    if (!paused) return
-    if (event.target instanceof Element && event.target.closest(".new-game-btn")) return
+    if (!paused || !(event.target instanceof Element)) return
+    const target = event.target
+    if (target.closest(".new-game-btn")) return
+    if (!target.closest(".board, button")) return
     event.stopPropagation()
     setPaused(false)
   }
