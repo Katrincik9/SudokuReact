@@ -3,7 +3,7 @@ import GamePanel from './gamePanel/GamePanel';
 import { useEffect, useState } from 'react';
 import type { BoardData, CellData, HistoryEntry } from '../types/sudoku';
 import { GameContext } from '../types/GameContext';
-import createPuzzleBoard from '../utils/createPuzzleBoard';
+import createPuzzleBoard from '../utils/puzzleBoardInitialization';
 import type { MouseEvent } from 'react'
 
 export default function Game() {
