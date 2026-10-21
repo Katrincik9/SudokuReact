@@ -60,18 +60,18 @@ export default function Game() {
     updateSelectedCell(newCellData)
   }
 
-  function updateSelectedCell(updatedCell : CellData) {
+  function updateSelectedCell(nextCellData : CellData) {
     const { row, column } = selectedCell
     const currentCell = board[row][column]
     if (currentCell.isFixed) return
-    if (currentCell.value === updatedCell.value && currentCell.notes.length === updatedCell.notes.length) return
+    if (currentCell.value === nextCellData.value && currentCell.notes.length === nextCellData.notes.length) return
     setHistory(previousHistory => [...previousHistory, { board, selectedCell }])
     
-    const previousBoard = [...board]
-    const selectedRow = [...previousBoard[row]]
-    selectedRow[column] = updatedCell
-    previousBoard[row] = selectedRow
-    setBoard(previousBoard)
+    const nextBoard = [...board]
+    const updatedRow = [...nextBoard[row]]
+    updatedRow[column] = nextCellData
+    nextBoard[row] = updatedRow
+    setBoard(nextBoard)
   }
 
   function handleUndoClick() {
