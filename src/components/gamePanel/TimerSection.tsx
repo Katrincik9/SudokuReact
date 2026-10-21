@@ -1,4 +1,5 @@
 import pauseIcon from "../../assets/icons/pauseIcon.svg";
+import playIcon from "../../assets/icons/playIcon.svg";
 import "./css/TimerSection.css";
 import { useGameContext } from "../../types/GameContext";
 
@@ -24,10 +25,10 @@ function TimerDisplay() {
 } 
 
 function PauseButton() {
-    const {togglePauseGame} = useGameContext()
+    const {paused, togglePauseGame} = useGameContext()
     return (
         <button className="pause-btn" onClick={togglePauseGame}>
-            <img src={pauseIcon}></img>
+            <img src={paused ? playIcon : pauseIcon}></img>
         </button>
     )
 }
