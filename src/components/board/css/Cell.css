@@ -23,6 +23,18 @@
   background-color: #c3d7ea;
 }
 
+.board-cell.selected.conflict {
+  background-color: var(--selectedCellColor);
+}   
+
+.board-cell.conflict {
+  background-color: #f7cfd6;
+}
+
+.board-cell.entered.conflict {
+  color: #e55c6c;
+}
+
 .cell-notes {
   display: grid;
   place-items: center;

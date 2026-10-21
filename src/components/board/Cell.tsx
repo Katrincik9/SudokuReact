@@ -1,5 +1,6 @@
 import { useGameContext } from "../../types/GameContext";
 import type { CellData } from "../../types/sudoku";
+import hasConflict from "../../utils/sudokuValidation";
 import './css/Cell.css';
 
 export default function Cell({cell, row, column} : {cell : CellData; row : number; column : number}) {
@@ -13,12 +14,14 @@ export default function Cell({cell, row, column} : {cell : CellData; row : numbe
     && Math.floor(column/ 3) === Math.floor(selectedCell.column/ 3)
   const selectedCellValue = board[selectedCell.row][selectedCell.column].value
   const isSameValue = selectedCellValue !== null && selectedCellValue === cell.value
+  const isConflict = hasConflict({board, row, column})
   const className = [
     "board-cell",
     isSelected && "selected",
     (isSameRow || isSameColumn || isSameBox) && "highlighted",
     isEntered && "entered",
-    isSameValue && "same-value"
+    isSameValue && "same-value",
+    isConflict && "conflict"
   ].filter(Boolean).join(" ")
   return (
     <div className={className} onClick={() => handleCellClick(row, column)}>
