@@ -88,9 +88,8 @@ export default function Game() {
   
   function handleClickCapture(event : MouseEvent<HTMLDivElement>) {
     const target = event.target
-    if (!paused || !(target instanceof Element)) return
-    if (target.closest(".new-game-btn")) return
-    if (!target.closest(".board, button")) return
+    if (!(target instanceof Element)) return
+    if (target.closest(".new-game-btn") || !target.closest(".board, button")) return
     event.stopPropagation()
     setPaused(false)
   }
@@ -111,7 +110,7 @@ export default function Game() {
   }
 
   return (
-    <div className={`game ${paused ? "paused" : ""}`} onClickCapture={handleClickCapture}>
+    <div className={`game ${paused ? "paused" : ""}`} onClickCapture={paused ? handleClickCapture : undefined}>
     <GameContext.Provider value={contextValues}>
       <Board/>
       <GamePanel/>
