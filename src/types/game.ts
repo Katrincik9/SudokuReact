@@ -1,4 +1,4 @@
-import type { CellData } from "./sudoku"
+import type { CellData } from "./sudoku";
 
 export interface GameContextData {
     board : CellData[][],
@@ -12,5 +12,7 @@ export interface GameContextData {
     handleUndoClick() : void,
     togglePauseGame() : void,
     timer : number,
-    paused : boolean
-}
+    paused: boolean,
+    won: boolean,
+    showWinOverlay: boolean
+}   

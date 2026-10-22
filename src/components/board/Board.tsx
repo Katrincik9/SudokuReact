@@ -1,10 +1,11 @@
-import './Board.css'
+import './Board.css';
 import { Cell } from "./Cell";
 import { useGameContext } from "../../context/GameContext";
-import pauseBoardIcon from "../../assets/icons/pauseBoardIcon.svg";
+import { WinOverlay } from './WinOverlay';
+import { PauseOverlay } from './PauseOverlay';
 
 export function Board() {
-  const {board, paused} = useGameContext()
+  const {board, paused, won} = useGameContext();
   return (
     <div className="board">
       {board.map((rowCells, rowIndex) => {
@@ -12,11 +13,8 @@ export function Board() {
           return <Cell key={`${rowIndex}-${columnIndex}`} cell={cell} row={rowIndex} column={columnIndex}/>;
         });
       })}
-      {paused && (
-        <div className="board-pause-overlay">
-          <img src={pauseBoardIcon} />
-        </div>
-      )}
+      {paused && <PauseOverlay />}
+      {won && <WinOverlay />}
     </div>
-  )
+  );
 }

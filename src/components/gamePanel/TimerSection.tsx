@@ -5,22 +5,22 @@ import { useGameContext } from "../../context/GameContext";
 import { formatTimer } from "../../services/timeFormating";
 
 function TimerDisplay() {
-    const {timer} = useGameContext()
+    const { timer } = useGameContext();
     return (
         <div className="timer-display">
             <label className="timer-label">Time</label>
             <span className="timer-span">{formatTimer(timer)}</span>
         </div>
-    )
+    );
 } 
 
 function PauseButton() {
-    const {paused, togglePauseGame} = useGameContext()
+    const { paused, won, togglePauseGame } = useGameContext();
     return (
         <button className="pause-btn" onClick={togglePauseGame}>
-            <img src={paused ? playIcon : pauseIcon}></img>
+            <img src={(paused || won) ? playIcon : pauseIcon}></img>
         </button>
-    )
+    );
 }
 
 export function TimerSection() {
@@ -29,5 +29,5 @@ export function TimerSection() {
             <TimerDisplay />
             <PauseButton />
         </div>
-    )
+    );
 }
