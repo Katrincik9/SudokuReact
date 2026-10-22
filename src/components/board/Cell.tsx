@@ -3,10 +3,10 @@ import type { CellData } from "../../types/sudoku";
 import hasConflict from "../../utils/sudokuValidation";
 import './css/Cell.css';
 
-export default function Cell({cell, row, column} : {cell : CellData; row : number; column : number}) {
-  const { board } = useGameContext()
+export function Cell({cell, row, column} : {cell : CellData; row : number; column : number}) {
+  const { board, selectedCell, handleCellClick } = useGameContext()
+
   const isEntered = !cell.isFixed && cell.value !== null
-  const {selectedCell, handleCellClick} = useGameContext()
   const isSelected = selectedCell.row === row && selectedCell.column === column
   const isSameRow = selectedCell.row === row 
   const isSameColumn = selectedCell.column === column
@@ -15,6 +15,7 @@ export default function Cell({cell, row, column} : {cell : CellData; row : numbe
   const selectedCellValue = board[selectedCell.row][selectedCell.column].value
   const isSameValue = selectedCellValue !== null && selectedCellValue === cell.value
   const isConflict = hasConflict({board, row, column})
+
   const className = [
     "board-cell",
     isSelected && "selected",
@@ -23,6 +24,7 @@ export default function Cell({cell, row, column} : {cell : CellData; row : numbe
     isSameValue && "same-value",
     isConflict && "conflict"
   ].filter(Boolean).join(" ")
+
   return (
     <div className={className} onClick={() => handleCellClick(row, column)}>
       {cell.value !== null ? (

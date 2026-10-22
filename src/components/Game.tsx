@@ -1,4 +1,4 @@
-import Board from './board/Board';
+import { Board } from './board/Board';
 import GamePanel from './gamePanel/GamePanel';
 import { useEffect, useState } from 'react';
 import type { BoardData, CellData, HistoryEntry } from '../types/sudoku';
