@@ -13,6 +13,7 @@ export default function Game() {
   const [history, setHistory] = useState<HistoryEntry[]>([])
   const [paused, setPaused] = useState(false)
   const [timer, setTimer] = useState(0)
+  const numberKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
   function startNewGame() {
     setBoard(createPuzzleBoard())
@@ -20,6 +21,42 @@ export default function Game() {
     setHistory([])
     setTimer(0)
     setPaused(false)
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [selectedCell, paused, notesMode, board])
+
+  function handleKeyDown(event : KeyboardEvent) {
+    if (paused) return 
+    let { row, column } = selectedCell
+    switch (event.key) {
+      case "ArrowUp":
+        row--
+        break
+      case "ArrowDown":
+        row++
+        break
+      case "ArrowLeft":
+        column--
+        break
+      case "ArrowRight":
+        column++
+        break
+    }
+
+    if (row >= 0 && row < 9 && column >=0 && column < 9 && (selectedCell.row !== row || selectedCell.column !== column)) {
+      setSelectedCell({row, column})
+    }
+
+    if (numberKeys.includes(event.key)) {
+      handleNumberClick(Number(event.key))
+    }
+
+    if (event.key === "Backspace" || event.key === "Delete") {
+      handleEraseClick()
+    }
   }
 
   useEffect(() => {
