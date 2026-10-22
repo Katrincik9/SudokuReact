@@ -4,16 +4,6 @@ import notesIcon from "../../assets/icons/notesIcon.svg";
 import { useGameContext } from "../../context/GameContext";
 import "./GameControls.css"
 
-export default function GameControls() {
-    return (
-        <div className="game-controls">
-            <UndoButton/>
-            <EraseButton/>
-            <NotesButton/>
-        </div>
-    )
-}
-
 function UndoButton() {
     const { handleUndoClick } = useGameContext()
     return (
@@ -39,4 +29,14 @@ function NotesButton() {
             <img src={notesIcon}></img>
         </button>
     ) 
+}
+
+export function GameControls() {
+    return (
+        <div className="game-controls">
+            <UndoButton/>
+            <EraseButton/>
+            <NotesButton/>
+        </div>
+    )
 }

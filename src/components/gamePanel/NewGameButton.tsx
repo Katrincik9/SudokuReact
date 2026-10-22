@@ -1,7 +1,7 @@
 import { useGameContext } from "../../context/GameContext";
 import "./NewGameButton.css"
 
-export default function NewGameButton() {
+export function NewGameButton() {
     const {startNewGame} = useGameContext()
     return (
         <button className="new-game-btn" onClick={startNewGame}>New Game</button>

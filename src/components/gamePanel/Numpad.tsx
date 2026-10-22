@@ -1,7 +1,13 @@
 import { useGameContext } from "../../context/GameContext";
 import "./Numpad.css"
 
-export default function Numpad() {
+function NumpadItem({value, onClick} : {value : number; onClick: () => void}) {
+    return (
+        <button className="numpad-item" onClick={onClick}>{value}</button>
+    )
+}
+
+export function Numpad() {
     const {handleNumberClick} = useGameContext()
     return (
         <div className="numpad">
@@ -11,11 +17,5 @@ export default function Numpad() {
                 }
             )}
         </div>
-    )
-}
-
-function NumpadItem({value, onClick} : {value : number; onClick: () => void}) {
-    return (
-        <button className="numpad-item" onClick={onClick}>{value}</button>
     )
 }
