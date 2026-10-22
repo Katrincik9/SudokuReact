@@ -1,7 +1,7 @@
 import pauseIcon from "../../assets/icons/pauseIcon.svg";
 import playIcon from "../../assets/icons/playIcon.svg";
 import "./css/TimerSection.css";
-import { useGameContext } from "../../types/GameContext";
+import { useGameContext } from "../../context/GameContext";
 
 export default function TimerSection() {
     return (

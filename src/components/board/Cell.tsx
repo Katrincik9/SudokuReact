@@ -1,6 +1,6 @@
-import { useGameContext } from "../../types/GameContext";
+import { useGameContext } from "../../context/GameContext";
 import type { CellData } from "../../types/sudoku";
-import hasConflict from "../../utils/sudokuValidation";
+import { hasConflict } from "../../utils/sudokuValidation";
 import './css/Cell.css';
 
 export function Cell({cell, row, column} : {cell : CellData; row : number; column : number}) {

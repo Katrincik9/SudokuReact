@@ -1,6 +1,6 @@
 import './css/Board.css'
 import { Cell } from "./Cell";
-import { useGameContext } from '../../types/GameContext';
+import { useGameContext } from "../../context/GameContext";
 import pauseBoardIcon from "../../assets/icons/pauseBoardIcon.svg";
 
 export function Board() {

@@ -1,4 +1,4 @@
-import { useGameContext } from "../../types/GameContext";
+import { useGameContext } from "../../context/GameContext";
 import "./css/Numpad.css"
 
 export default function Numpad() {

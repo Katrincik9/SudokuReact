@@ -1,7 +1,7 @@
 import undoIcon from "../../assets/icons/undoIcon.svg";
 import eraseIcon from "../../assets/icons/eraseIcon.svg";
 import notesIcon from "../../assets/icons/notesIcon.svg";
-import { useGameContext } from "../../types/GameContext";
+import { useGameContext } from "../../context/GameContext";
 import "./css/GameControls.css"
 
 export default function GameControls() {
