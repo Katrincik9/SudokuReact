@@ -1,8 +1,8 @@
-import './App.css'
-import { Game } from './components/Game'
+import './App.css';
+import { Game } from './components/Game';
 
 export function App() {
   return (
     <Game />
-  )
+  );
 }

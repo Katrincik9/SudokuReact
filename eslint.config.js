@@ -18,5 +18,11 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
     },
+  }, 
+  {
+    files: ['**/*.{ts,tsx}'],
+    rules: {
+      "semi": ["error"]
+    }
   },
 ])

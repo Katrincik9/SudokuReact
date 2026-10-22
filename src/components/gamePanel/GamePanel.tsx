@@ -2,7 +2,7 @@ import { GameControls } from "./GameControls";
 import { NewGameButton } from "./NewGameButton";
 import { Numpad } from "./Numpad";
 import { TimerSection } from "./TimerSection";
-import "./GamePanel.css"
+import "./GamePanel.css";
 
 export function GamePanel() {
     return (
@@ -12,5 +12,5 @@ export function GamePanel() {
             <Numpad />
             <NewGameButton />
         </div>
-    )
+    );
 }

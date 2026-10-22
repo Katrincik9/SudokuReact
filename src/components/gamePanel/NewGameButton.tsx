@@ -1,9 +1,9 @@
 import { useGameContext } from "../../context/GameContext";
-import "./NewGameButton.css"
+import "./NewGameButton.css";
 
 export function NewGameButton() {
-    const {startNewGame} = useGameContext()
+    const { startNewGame } = useGameContext();
     return (
         <button className="new-game-btn" onClick={startNewGame}>New Game</button>
-    )
+    );
 }
