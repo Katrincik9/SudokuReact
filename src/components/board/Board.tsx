@@ -1,4 +1,4 @@
-import './css/Board.css'
+import './Board.css'
 import { Cell } from "./Cell";
 import { useGameContext } from "../../context/GameContext";
 import pauseBoardIcon from "../../assets/icons/pauseBoardIcon.svg";

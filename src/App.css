@@ -1,11 +1,11 @@
 @font-face {
   font-family: "Hauss";
-  src: url(../assets/fonts/als_hauss_book.826f31c6.woff2) format("woff2");
+  src: url(./assets/fonts/als_hauss_book.826f31c6.woff2) format("woff2");
 }
 
 @font-face {
   font-family: "Hauss-Bold";
-  src: url(../assets/fonts/als_hauss_medium.woff2) format("woff2");
+  src: url(./assets/fonts/als_hauss_medium.woff2) format("woff2");
 }
 
 :root {

@@ -1,12 +1,8 @@
 import './App.css'
 import Game from './components/Game'
 
-function App() {
+export function App() {
   return (
-    <div className="app">
-      <Game />
-    </div>
+    <Game />
   )
 }
-
-export default App

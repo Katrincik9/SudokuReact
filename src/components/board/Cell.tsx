@@ -1,7 +1,7 @@
 import { useGameContext } from "../../context/GameContext";
 import type { CellData } from "../../types/sudoku";
-import { hasConflict } from "../../services/sudokuValidation";
-import './css/Cell.css';
+import { hasConflict } from "../../utils/sudokuValidation";
+import './Cell.css';
 
 export function Cell({cell, row, column} : {cell : CellData; row : number; column : number}) {
   const { board, selectedCell, handleCellClick } = useGameContext()

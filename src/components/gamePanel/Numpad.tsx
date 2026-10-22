@@ -1,5 +1,5 @@
 import { useGameContext } from "../../context/GameContext";
-import "./css/Numpad.css"
+import "./Numpad.css"
 
 export default function Numpad() {
     const {handleNumberClick} = useGameContext()
