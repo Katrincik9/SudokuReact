@@ -4,9 +4,7 @@ export interface CellData {
   isFixed: boolean;
 }
 
-export type BoardData = CellData[][] 
-
 export type HistoryEntry = {
-  board : BoardData;
+  board : CellData[][];
   selectedCell : {row: number; column: number}
 }

@@ -1,13 +1,13 @@
-import type { BoardData } from "../types/sudoku";
+import type { CellData } from "../types/sudoku";
 
 type ConflictCheckProps = {
-  board : BoardData;
+  board : CellData[][];
   row: number;
   column: number;
   currentCellValue : number
 }
 
-export default function hasConflict({board, row, column} : {board : BoardData; row: number; column: number}) {
+export function hasConflict({board, row, column} : {board : CellData[][]; row: number; column: number}) {
   const currentCellValue = board[row][column].value
   if (currentCellValue === null) return false
   const conflictCheckProps = {board, row, column, currentCellValue}

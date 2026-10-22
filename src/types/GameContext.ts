@@ -1,8 +1,8 @@
 import { createContext, useContext } from "react"
-import type { BoardData } from "./sudoku"
+import type { CellData } from "./sudoku"
 
 export interface GameContextData {
-    board : BoardData
+    board : CellData[][],
     selectedCell : {row: number, column: number},
     handleCellClick(row: number, column: number) : void,
     notesMode : boolean,

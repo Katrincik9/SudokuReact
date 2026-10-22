@@ -1,9 +1,9 @@
-import type { BoardData, CellData } from "../types/sudoku";
+import type { CellData } from "../types/sudoku";
 
-export default function createPuzzleBoard() : BoardData {
+export function createPuzzleBoard() : CellData[][] {
     const generatedPuzzleString = window.sudoku.generate("easy");
     const generatedPuzzleGrid = window.sudoku.board_string_to_grid(generatedPuzzleString);
-    let board : BoardData = []
+    let board : CellData[][] = []
     for (const row of generatedPuzzleGrid) {
       let boardRow : CellData[] = []
       for (const character of row) {

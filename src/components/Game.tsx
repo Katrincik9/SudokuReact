@@ -1,13 +1,13 @@
 import { Board } from './board/Board';
 import GamePanel from './gamePanel/GamePanel';
 import { useEffect, useState } from 'react';
-import type { BoardData, CellData, HistoryEntry } from '../types/sudoku';
+import type { CellData, HistoryEntry } from '../types/sudoku';
 import { GameContext } from '../types/GameContext';
-import createPuzzleBoard from '../utils/puzzleBoardInitialization';
+import { createPuzzleBoard } from '../utils/puzzleBoardInitialization';
 import type { MouseEvent } from 'react'
 
 export default function Game() {
-  const [board, setBoard] = useState<BoardData>(createPuzzleBoard)
+  const [board, setBoard] = useState<CellData[][]>(createPuzzleBoard)
   const [selectedCell, setSelectedCell] = useState({row: 0, column: 0})
   const [notesMode, setNotesMode] = useState(false)
   const [history, setHistory] = useState<HistoryEntry[]>([])
