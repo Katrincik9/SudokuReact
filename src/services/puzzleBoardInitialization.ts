@@ -1,6 +1,7 @@
 import type { CellData } from "../types/sudoku";
 
 window.testPuzzle = false;
+window.flashlightChallenge = false;
 
 function generatePuzzle() {
   if (!window.testPuzzle) {

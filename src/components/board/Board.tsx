@@ -3,6 +3,7 @@ import { Cell } from "./Cell";
 import { useGameContext } from "../../context/GameContext";
 import { WinOverlay } from './WinOverlay';
 import { PauseOverlay } from './PauseOverlay';
+import { FlashlightChallenge } from './FlashlightChallenge';
 
 export function Board() {
   const {board, paused, won} = useGameContext();
@@ -15,6 +16,7 @@ export function Board() {
       })}
       {paused && <PauseOverlay />}
       {won && <WinOverlay />}
+      {window.flashlightChallenge && <FlashlightChallenge/>}
     </div>
   );
 }

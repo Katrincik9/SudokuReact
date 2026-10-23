@@ -5,4 +5,5 @@ interface Window {
   };
 
   testPuzzle: boolean
+  flashlightChallenge: boolean
 }
