@@ -23,3 +23,37 @@
 .numpad-item:active {
   background-color: var(--activeBtn);
 }
+@media (min-width: 901px) {
+  .numpad-item {
+    background-color: var(--buttonsBackgroundColor);
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 900px) {
+  .numpad {
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: none;
+    gap: 0;
+  }
+
+  .numpad-item {
+    padding: 0;
+    background-color: transparent;
+    font-size: 52px;
+  }
+
+  .numpad-item:hover {
+    background-color: #fff;
+  }
+
+  .numpad-item:active {
+    background-color: var(--activeBtn);
+  }
+}
+
+@media (max-width: 600px) {
+  .numpad-item {
+    font-size: 36px;
+  }
+}

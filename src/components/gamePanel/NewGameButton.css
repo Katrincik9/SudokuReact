@@ -17,3 +17,8 @@
 .new-game-btn:hover {
   background-color: #7091d5;
 }
+@media (max-width: 900px) {
+  .new-game-btn {
+    display: none;
+  }
+}

@@ -29,3 +29,26 @@ body {
   justify-content: center;
   margin: 2% auto;
 }
+@media (min-width: 901px) {
+  .game {
+    padding: 80px 100px;
+  }
+}
+
+@media (max-width: 900px) {
+  .game {
+    display: block;
+    max-width: 500px;
+    padding-top: 45px;
+    position: relative;
+    margin-top: 6%;
+  }
+}
+
+@media (max-width: 600px) {
+  .game {
+    max-width: 450px;
+    padding: 45px 3% 0 3%;
+    margin-top: 10%;
+  }
+}

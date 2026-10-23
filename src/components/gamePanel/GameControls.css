@@ -65,3 +65,67 @@
   content: "ON";
   background-color: var(--numberColor);
 } 
+@media (max-width: 600px) {
+  .game-control-button:hover {
+    background-color: transparent;
+    border-color: transparent;
+  }
+}
+
+@media (max-width: 900px) {
+  .game-controls {
+    margin: 0;
+    padding: 12px 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .game-controls {
+    padding: 10px 15px;
+    gap: 20px;
+  }
+
+  .game-control-button {
+    width: auto;
+    height: 38px;
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    padding: 0;
+  }
+
+  .game-control-button img {
+    width: clamp(32px, 30%, 38px);
+  }
+
+  .game-control-button:hover {
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  .game-control-button:active {
+    background-color: var(--activeBtn);
+    border-color: var(--activeBtn);
+  }
+
+  .game-control-button.notes-off::after,
+  .game-control-button.notes-on::after {
+    top: -5%;
+    left: 50%;
+    height: 20px;
+    font-size: 11px;
+  }
+
+  .game-control-button.notes-on {
+    border: none;
+  }
+
+  .game-control-button.notes-on:hover {
+    background-color: var(--buttonsBackgroundColor);
+  }
+
+  .game-control-button.notes-on::after {
+    content: "ON";
+    background-color: var(--numberColor);
+  }
+}

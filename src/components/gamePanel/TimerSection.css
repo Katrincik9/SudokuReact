@@ -39,3 +39,16 @@
 .pause-btn:hover {
   background-color: var(--hoverBtn);
 }
+@media (max-width: 900px) {
+  .timer-section {
+    position: absolute;
+    top: 1px;
+    right: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .timer-section {
+    right: 3%;
+  }
+}

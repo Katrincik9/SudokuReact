@@ -10,3 +10,8 @@
 .board-pause-overlay img {
   width: 13%;
 }
+@media (max-width: 600px) {
+  .board-pause-overlay svg {
+    width: max(13%, 60px);
+  }
+}

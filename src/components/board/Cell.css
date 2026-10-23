@@ -60,3 +60,12 @@
 .game.hidden .board-cell {
   background-color: transparent;
 }
+@media (max-width: 600px) {
+  .cell-value {
+    font-size: clamp(18px, 7cqw, 38px);
+  }
+
+  .cell-notes {
+    font-size: clamp(7px, 2vw, 12px);
+  }
+}

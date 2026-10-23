@@ -35,4 +35,20 @@
   z-index: 1;
 }
 
+@media (max-width: 900px) {
+  .board {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .board::after {
+    border-width: clamp(2px, 0.5vw, 2.5px);
+  }
+
+  .board::before {
+    border-width: clamp(2px, 0.5vw, 2.5px);
+  }
+}
 

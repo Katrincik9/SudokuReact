@@ -44,3 +44,16 @@
   font-size: 14px;
   color: var(--noteColor)
 }
+@media (max-width: 600px) {
+  .win-message {
+    padding: 16px;
+  }
+
+  .win-label {
+    font-size: clamp(28px, 10.5cqw, 46px);
+  }
+
+  .win-timer-label {
+    font-size: clamp(12px, 3.5cqw, 14px);
+  }
+}
