@@ -16,7 +16,7 @@
   cursor: pointer;
 }
 
-.game-control-button img {
+.game-control-button svg {
   vertical-align: middle;
   width: 65%;
 }
@@ -65,6 +65,7 @@
   content: "ON";
   background-color: var(--numberColor);
 } 
+
 @media (max-width: 600px) {
   .game-control-button:hover {
     background-color: transparent;
@@ -92,10 +93,6 @@
     border: none;
     border-radius: 8px;
     padding: 0;
-  }
-
-  .game-control-button img {
-    width: clamp(32px, 30%, 38px);
   }
 
   .game-control-button:hover {
@@ -132,4 +129,31 @@
 
 .flashlightChallenge button {
   border-color: #121929;
+}
+.flashlightChallenge .game-control-button svg path {
+  fill: #a9c2e3
+}
+
+.flashlightChallenge .game-control-button:hover {
+  background-color: #1D2A42;
+  border-color: #1D2A42;
+}
+
+.flashlightChallenge .game-control-button:active {
+  background-color: #29466C;
+  border-color: #29466C;
+}
+
+.flashlightChallenge .game-control-button.notes-on {
+  border-color: #a9c2e3;
+}
+
+.flashlightChallenge .game-control-button.notes-on:after {
+  color: #121929;
+  background-color: #a9c2e3;
+}
+
+.flashlightChallenge .game-control-button:after {
+  color: #a9c2e3;
+  background-color: #202E47;
 }

@@ -1,5 +1,5 @@
-import pauseIcon from "../../assets/icons/pauseIcon.svg";
-import playIcon from "../../assets/icons/playIcon.svg";
+import { PauseIcon } from "../../assets/icons/GameIcons";
+import { PlayIcon } from "../../assets/icons/GameIcons";
 import "./TimerSection.css";
 import { useGameContext } from "../../context/GameContext";
 import { formatTimer } from "../../services/timeFormating";
@@ -18,7 +18,7 @@ function PauseButton() {
     const { paused, won, togglePauseGame } = useGameContext();
     return (
         <button className="pause-btn" onClick={togglePauseGame}>
-            <img src={(paused || won) ? playIcon : pauseIcon}></img>
+            {(paused || won) ? <PlayIcon /> : <PauseIcon />}
         </button>
     );
 }

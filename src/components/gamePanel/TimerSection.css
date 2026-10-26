@@ -32,7 +32,7 @@
   cursor: pointer;
 }
 
-.pause-btn img {
+.pause-btn svg {
   vertical-align: middle;
 }
 
@@ -52,6 +52,14 @@
     right: 3%;
   }
 }
+
 .flashlightChallenge .timer-display {
   color: #a9c2e3;
+}
+.flashlightChallenge .pause-btn svg path {
+  fill: #a9c2e3;
+}
+
+.flashlightChallenge .pause-btn:hover {
+  background-color: #1D2A42;
 }

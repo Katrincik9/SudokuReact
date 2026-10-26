@@ -24,5 +24,14 @@
 }
 
 .flashlightChallenge .new-game-btn {
-  color: #a9c2e3
+  color: #a9c2e3;
+    background-color: #29466C;
+  }
+  
+  .flashlightChallenge .new-game-btn:hover {
+    background-color: #365985;
+  }
+  
+  .flashlightChallenge .new-game-btn:active {
+    background-color: #203A5C;
 }

@@ -27,14 +27,13 @@
     @media (min-width: 901px) {
     .numpad-item {
         background-color: var(--buttonsBackgroundColor);
-    font-size: 42px;
-  }
-}
-
-@media (max-width: 900px) {
-  .numpad {
-    grid-template-columns: repeat(9, 1fr);
-    grid-template-rows: none;
+          font-size: 42px;
+        }
+        }
+        
+        @media (max-width: 900px) {
+          .numpad {
+            grid-template-columns: repeat(9, 1fr);   grid-template-rows: none;
     gap: 0;
   }
 
@@ -61,4 +60,13 @@
 
 .flashlightChallenge .numpad-item {
   color: #a9c2e3;
+}
+.flashlightChallenge .numpad-item:hover {
+  background-color: #1D2A42;
+  border-color: #1D2A42;
+}
+
+.flashlightChallenge .numpad-item:active {
+  background-color: #29466C;
+  border-color: #29466C;
 }
