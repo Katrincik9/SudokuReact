@@ -129,3 +129,7 @@
     background-color: var(--numberColor);
   }
 }
+
+.flashlightChallenge button {
+  border-color: #121929;
+}

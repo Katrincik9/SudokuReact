@@ -163,7 +163,7 @@ export function Game() {
   };
 
   return (
-    <div className={`game ${(paused || showWinOverlay) ? "hidden" : ""}`} onClickCapture={(paused || won) ? handleClickCapture : undefined}>
+    <div className={`game ${(paused || showWinOverlay) ? "hidden" : ""} ${window.flashlightChallenge ? "flashlightChallenge" : ""}`} onClickCapture={(paused || won) ? handleClickCapture : undefined}>
     <GameContext.Provider value={contextValues}>
       <Board/>
       <GamePanel/>

@@ -3,6 +3,6 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-    background: radial-gradient(circle 90px at var(--flashlight-x) var(--flashlight-y), transparent, rgba(10, 15, 30, 0.99));
+    background: radial-gradient(circle 90px at var(--flashlight-x) var(--flashlight-y), transparent, rgba(8, 14, 25, 0.99));
     z-index: 3
 }
