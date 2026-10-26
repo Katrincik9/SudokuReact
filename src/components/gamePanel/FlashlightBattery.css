@@ -1,0 +1,45 @@
+.flashlight-section {
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.flashlight-section svg {
+    width: 11%;
+}
+
+.flashlight-action,
+.action-text {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.action-text {
+    color: #a9c2e3;
+    font-size: 13px;
+}
+
+.battery-levels {
+    display: flex;
+    gap: 5px;
+}
+
+.battery-segment {
+    width: 13px;
+    height: 20px;
+    border-radius: 2px;
+    background-color: #354158;
+    gap: 2px;
+}
+
+.battery-segment.empty {
+    background-color: #354158;
+}
+
+.battery-segment.charged {
+    background-color: #4F88EA;
+}

@@ -17,6 +17,7 @@ export function Game() {
   const numberKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const won = isBoardWon({ board });
   const [showWinOverlay, setWinOverlay] = useState(false);
+  const [battery, setBattery] = useState(100);
 
   function startNewGame() {
     setBoard(createPuzzleBoard());
@@ -26,6 +27,7 @@ export function Game() {
     setTimer(0);
     setPaused(false);
     setWinOverlay(false);
+    setBattery(100);
   }
 
   useEffect(() => {
@@ -145,6 +147,11 @@ export function Game() {
     setPaused(false);
   }
 
+  function handleFlashlightClick() {
+    if (battery < 0) return;
+    setBattery(battery - 25);
+  }
+
   const contextValues = {
     board,
     selectedCell,
@@ -159,7 +166,9 @@ export function Game() {
     timer,
     paused,
     won,
-    showWinOverlay
+    showWinOverlay,
+    battery,
+    handleFlashlightClick
   };
 
   return (

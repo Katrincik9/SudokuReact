@@ -157,3 +157,7 @@
   color: #a9c2e3;
   background-color: #202E47;
 }
+.flashlightChallenge .game-controls {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
