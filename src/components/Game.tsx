@@ -18,6 +18,7 @@ export function Game() {
   const won = isBoardWon({ board });
   const [showWinOverlay, setWinOverlay] = useState(false);
   const [battery, setBattery] = useState(100);
+  const [revealed, setRevealed] = useState(false);
 
   function startNewGame() {
     setBoard(createPuzzleBoard());
@@ -148,9 +149,20 @@ export function Game() {
   }
 
   function handleFlashlightClick() {
-    if (battery < 0) return;
+    if (paused && won) return;
+    if (battery < 25) return;
+    if (revealed) return;
     setBattery(battery - 25);
+    setRevealed(true);
   }
+
+  useEffect(() => {
+    if (!revealed) return;
+    const revealID = setTimeout(() => {
+      setRevealed(false);
+    }, 5000);
+    return () => clearTimeout(revealID);
+  }, [revealed]);
 
   const contextValues = {
     board,
@@ -168,7 +180,8 @@ export function Game() {
     won,
     showWinOverlay,
     battery,
-    handleFlashlightClick
+    handleFlashlightClick,
+    revealed
   };
 
   return (

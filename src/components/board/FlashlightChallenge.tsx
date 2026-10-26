@@ -3,7 +3,7 @@ import { useGameContext } from '../../context/GameContext';
 import './FlashlightChallenge.css';
 
 export function FlashlightChallenge() {
-    const {selectedCell} = useGameContext();
+    const {selectedCell, revealed} = useGameContext();
     const positionX = (selectedCell.column + 0.5) / 9 * 100;
     const positionY = (selectedCell.row + 0.5) / 9 * 100;
 
@@ -13,6 +13,6 @@ export function FlashlightChallenge() {
     };
     
     return (
-        <div className="flashlight-overlay" style={flashlightStyle}></div>
+        <div className={`flashlight-overlay ${revealed ? "revealed" : ""}`} style={flashlightStyle}></div>
     );
 }
