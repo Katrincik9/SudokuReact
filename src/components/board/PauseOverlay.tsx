@@ -1,10 +1,10 @@
-import pauseBoardIcon from "../../assets/icons/pauseBoardIcon.svg";
+import { PauseBoardIcon } from '../../assets/icons/GameIcons';
 import './PauseOverlay.css';
 
 export function PauseOverlay() {
     return (
         <div className="board-pause-overlay">
-            <img src={pauseBoardIcon} />
+            < PauseBoardIcon />
         </div>
     );
 }

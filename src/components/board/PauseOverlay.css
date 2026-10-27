@@ -7,11 +7,14 @@
   cursor: pointer;
 }
 
-.board-pause-overlay img {
+.board-pause-overlay svg {
   width: 13%;
 }
 @media (max-width: 600px) {
   .board-pause-overlay svg {
     width: max(13%, 60px);
   }
+}
+.flashlightChallenge .board-pause-overlay svg circle {
+  fill: #29466C;
 }
