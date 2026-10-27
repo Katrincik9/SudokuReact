@@ -43,3 +43,12 @@
 .battery-segment.charged {
     background-color: #4F88EA;
 }
+.flashlightChallenge .flashlight-section:hover {
+    background-color: #1D2A42;
+    border-color: #1D2A42;
+}
+
+.flashlightChallenge .flashlight-section:active {
+    background-color: #29466C;
+    border-color: #29466C;
+}
