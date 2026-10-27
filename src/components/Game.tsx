@@ -5,7 +5,7 @@ import type { CellData, HistoryEntry } from '../types/sudoku';
 import { GameContext } from '../context/GameContext';
 import { createPuzzleBoard } from '../services/puzzleBoardInitialization';
 import type { MouseEvent } from 'react';
-import { isBoardWon } from '../services/sudokuValidation';
+import { isBoardWon, isBoxCompleted } from '../services/sudokuValidation';
 
 export function Game() {
   const [board, setBoard] = useState<CellData[][]>(createPuzzleBoard);
@@ -19,6 +19,7 @@ export function Game() {
   const [showWinOverlay, setWinOverlay] = useState(false);
   const [battery, setBattery] = useState(100);
   const [revealed, setRevealed] = useState(false);
+  const [rechargedBoxes, setRechargedBoxes] = useState(new Set<number>());
 
   function startNewGame() {
     setBoard(createPuzzleBoard());
@@ -29,6 +30,8 @@ export function Game() {
     setPaused(false);
     setWinOverlay(false);
     setBattery(100);
+    setRevealed(false);
+    setRechargedBoxes(new Set<number>());
   }
 
   useEffect(() => {
@@ -120,11 +123,18 @@ export function Game() {
     if (currentCell.isFixed) return;
     if (currentCell.value === nextCellData.value && currentCell.notes.length === nextCellData.notes.length) return;
     setHistory(previousHistory => [...previousHistory, { board, selectedCell }]);
-    
+
     const nextBoard = [...board];
     const updatedRow = [...nextBoard[row]];
     updatedRow[column] = nextCellData;
     nextBoard[row] = updatedRow;
+    if (isBoxCompleted({ board: nextBoard, row, column })) {
+      const boxIndex = Math.floor(row / 3) * 3 + Math.floor(column / 3);
+      if (!rechargedBoxes.has(boxIndex)) {
+        setRechargedBoxes(new Set([...rechargedBoxes, boxIndex]));
+        setBattery(previousBattery => Math.min(100, previousBattery + 25));
+      }
+    }
     setBoard(nextBoard);
   }
 
