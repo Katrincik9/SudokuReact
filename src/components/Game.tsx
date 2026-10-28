@@ -19,8 +19,10 @@ export function Game() {
   const won = isBoardWon({ board });
   const [showWinOverlay, setWinOverlay] = useState(false);
   const [gameId, setGameId] = useState(0);
+  const [isFlashlightActive, setFlashlightStatus] = useState(false);
 
   function startNewGame() {
+    setFlashlightStatus(window.flashlightChallenge);
     setGameId(gameId + 1);
     setBoard(createPuzzleBoard());
     setSelectedCell({ row: 0, column: 0 });
@@ -162,13 +164,14 @@ export function Game() {
     timer,
     paused,
     won,
-    showWinOverlay
+    showWinOverlay,
+    isFlashlightActive
   };
 
   return (
-    <div className={`game ${(paused || showWinOverlay) ? "hidden" : ""} ${window.flashlightChallenge ? "flashlightChallenge" : ""}`} onClickCapture={(paused || won) ? handleClickCapture : undefined}>
+    <div className={`game ${(paused || showWinOverlay) ? "hidden" : ""} ${isFlashlightActive ? "flashlightChallenge" : ""}`} onClickCapture={(paused || won) ? handleClickCapture : undefined}>
     <GameContext.Provider value={contextValues}>
-        {window.flashlightChallenge ?
+        {isFlashlightActive ?
           <FlashlightChallengeProvider key={gameId}>
             <Board />
             <GamePanel />

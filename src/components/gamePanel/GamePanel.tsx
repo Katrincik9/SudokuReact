@@ -4,12 +4,14 @@ import { Numpad } from "./Numpad";
 import { TimerSection } from "./TimerSection";
 import "./GamePanel.css";
 import { FlashlightBattery } from "./FlashlightBattery";
+import { useGameContext } from "../../context/GameContext";
 
 export function GamePanel() {
+    const {isFlashlightActive} = useGameContext();
     return (
         <div className="game-panel">
             <TimerSection />
-            {window.flashlightChallenge && <FlashlightBattery />}
+            {isFlashlightActive && <FlashlightBattery />}
             <GameControls />
             <Numpad />
             <NewGameButton />

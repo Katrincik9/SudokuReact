@@ -6,7 +6,7 @@ import { PauseOverlay } from './PauseOverlay';
 import { FlashlightChallenge } from './FlashlightChallenge';
 
 export function Board() {
-  const {board, paused, won} = useGameContext();
+  const {board, paused, won, isFlashlightActive} = useGameContext();
   return (
     <div className="board">
       {board.map((rowCells, rowIndex) => {
@@ -16,7 +16,7 @@ export function Board() {
       })}
       {paused && <PauseOverlay />}
       {won && <WinOverlay />}
-      {window.flashlightChallenge && <FlashlightChallenge/>}
+      {isFlashlightActive && <FlashlightChallenge/>}
     </div>
   );
 }
