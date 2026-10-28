@@ -50,9 +50,9 @@ function hasBoxConflict({board, row, column, currentCellValue} : ConflictCheckPr
   return false;
 }
 
-export function isBoxCompleted({ board, row, column }: { board: CellData[][]; row: number; column: number }) {
-  const boxStartRow = Math.floor(row / 3) * 3;
-  const boxStartColumn = Math.floor(column / 3) * 3;
+export function isBoxCompleted({ board, boxIndex }: { board: CellData[][]; boxIndex: number }) {
+  const boxStartRow = Math.floor(boxIndex / 3) * 3;
+  const boxStartColumn = (boxIndex % 3) * 3; 
   for (let i = 0; i < 3; i++) {
     const checkedRow = boxStartRow + i;
     for (let j = 0; j < 3; j++) {

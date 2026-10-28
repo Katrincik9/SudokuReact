@@ -6,8 +6,7 @@ import { GameContext } from '../context/GameContext';
 import { createPuzzleBoard } from '../services/puzzleBoardInitialization';
 import type { MouseEvent } from 'react';
 import { isBoardWon } from '../services/sudokuValidation';
-import { useFlashlightChallenge } from '../customHooks/useFlashlightChallenge';
-import { FlashlightChallengeContext } from '../context/FlashlightChallengeContext';
+import { FlashlightChallengeProvider } from '../context/FlashlightChallengeProvider';
 
 export function Game() {
   const [board, setBoard] = useState<CellData[][]>(createPuzzleBoard);
@@ -19,9 +18,10 @@ export function Game() {
   const numberKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const won = isBoardWon({ board });
   const [showWinOverlay, setWinOverlay] = useState(false);
-  const { battery, revealed, activateFlashlight, checkBoxAndRechargeBattery, resetFlashlightChallenge } = useFlashlightChallenge({ paused, won });
+  const [gameId, setGameId] = useState(0);
 
   function startNewGame() {
+    setGameId(gameId + 1);
     setBoard(createPuzzleBoard());
     setSelectedCell({ row: 0, column: 0 });
     setNotesMode(false);
@@ -29,7 +29,6 @@ export function Game() {
     setTimer(0);
     setPaused(false);
     setWinOverlay(false);
-    resetFlashlightChallenge();
   }
 
   useEffect(() => {
@@ -126,7 +125,6 @@ export function Game() {
     const updatedRow = [...nextBoard[row]];
     updatedRow[column] = nextCellData;
     nextBoard[row] = updatedRow;
-    checkBoxAndRechargeBattery({ nextBoard, row, column });
     setBoard(nextBoard);
   }
 
@@ -167,19 +165,20 @@ export function Game() {
     showWinOverlay
   };
 
-  const challengeContextValues = {
-    battery,
-    activateFlashlight,
-    revealed
-  };
-
   return (
     <div className={`game ${(paused || showWinOverlay) ? "hidden" : ""} ${window.flashlightChallenge ? "flashlightChallenge" : ""}`} onClickCapture={(paused || won) ? handleClickCapture : undefined}>
     <GameContext.Provider value={contextValues}>
-        <FlashlightChallengeContext.Provider value={challengeContextValues}>
-          <Board />
-          <GamePanel />
-        </FlashlightChallengeContext.Provider>
+        {window.flashlightChallenge ?
+          <FlashlightChallengeProvider key={gameId}>
+            <Board />
+            <GamePanel />
+          </FlashlightChallengeProvider>
+          :
+          <>
+            <Board />
+            <GamePanel />
+          </>
+        }
     </GameContext.Provider>
     </div>
   );
