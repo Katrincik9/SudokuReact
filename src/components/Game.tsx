@@ -5,7 +5,9 @@ import type { CellData, HistoryEntry } from '../types/sudoku';
 import { GameContext } from '../context/GameContext';
 import { createPuzzleBoard } from '../services/puzzleBoardInitialization';
 import type { MouseEvent } from 'react';
-import { isBoardWon, isBoxCompleted } from '../services/sudokuValidation';
+import { isBoardWon } from '../services/sudokuValidation';
+import { useFlashlightChallenge } from '../customHooks/useFlashlightChallenge';
+import { FlashlightChallengeContext } from '../context/FlashlightChallengeContext';
 
 export function Game() {
   const [board, setBoard] = useState<CellData[][]>(createPuzzleBoard);
@@ -17,9 +19,7 @@ export function Game() {
   const numberKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
   const won = isBoardWon({ board });
   const [showWinOverlay, setWinOverlay] = useState(false);
-  const [battery, setBattery] = useState(100);
-  const [revealed, setRevealed] = useState(false);
-  const [rechargedBoxes, setRechargedBoxes] = useState(new Set<number>());
+  const { battery, revealed, activateFlashlight, checkBoxAndRechargeBattery, resetFlashlightChallenge } = useFlashlightChallenge({ paused, won });
 
   function startNewGame() {
     setBoard(createPuzzleBoard());
@@ -29,9 +29,7 @@ export function Game() {
     setTimer(0);
     setPaused(false);
     setWinOverlay(false);
-    setBattery(100);
-    setRevealed(false);
-    setRechargedBoxes(new Set<number>());
+    resetFlashlightChallenge();
   }
 
   useEffect(() => {
@@ -128,13 +126,7 @@ export function Game() {
     const updatedRow = [...nextBoard[row]];
     updatedRow[column] = nextCellData;
     nextBoard[row] = updatedRow;
-    if (isBoxCompleted({ board: nextBoard, row, column })) {
-      const boxIndex = Math.floor(row / 3) * 3 + Math.floor(column / 3);
-      if (!rechargedBoxes.has(boxIndex)) {
-        setRechargedBoxes(new Set([...rechargedBoxes, boxIndex]));
-        setBattery(previousBattery => Math.min(100, previousBattery + 25));
-      }
-    }
+    checkBoxAndRechargeBattery({ nextBoard, row, column });
     setBoard(nextBoard);
   }
 
@@ -158,22 +150,6 @@ export function Game() {
     setPaused(false);
   }
 
-  function handleFlashlightClick() {
-    if (paused && won) return;
-    if (battery < 25) return;
-    if (revealed) return;
-    setBattery(battery - 25);
-    setRevealed(true);
-  }
-
-  useEffect(() => {
-    if (!revealed) return;
-    const revealID = setTimeout(() => {
-      setRevealed(false);
-    }, 5000);
-    return () => clearTimeout(revealID);
-  }, [revealed]);
-
   const contextValues = {
     board,
     selectedCell,
@@ -188,17 +164,22 @@ export function Game() {
     timer,
     paused,
     won,
-    showWinOverlay,
+    showWinOverlay
+  };
+
+  const challengeContextValues = {
     battery,
-    handleFlashlightClick,
+    activateFlashlight,
     revealed
   };
 
   return (
     <div className={`game ${(paused || showWinOverlay) ? "hidden" : ""} ${window.flashlightChallenge ? "flashlightChallenge" : ""}`} onClickCapture={(paused || won) ? handleClickCapture : undefined}>
     <GameContext.Provider value={contextValues}>
-      <Board/>
-      <GamePanel/>
+        <FlashlightChallengeContext.Provider value={challengeContextValues}>
+          <Board />
+          <GamePanel />
+        </FlashlightChallengeContext.Provider>
     </GameContext.Provider>
     </div>
   );

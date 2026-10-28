@@ -14,8 +14,5 @@ export interface GameContextData {
     timer : number,
     paused: boolean,
     won: boolean,
-    showWinOverlay: boolean,
-    battery: number,
-    handleFlashlightClick(): void,
-    revealed : boolean
+    showWinOverlay: boolean
 }   

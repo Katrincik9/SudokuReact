@@ -1,11 +1,12 @@
 import { FlashlightIcon } from '../../assets/icons/GameIcons';
-import { useGameContext } from '../../context/GameContext';
+import { useFlashlightChallengeContext } from '../../context/FlashlightChallengeContext';
 import './FlashlightBattery.css';
 
 export function FlashlightBattery() {
-    const { battery, handleFlashlightClick } = useGameContext();
+    const { battery, activateFlashlight } = useFlashlightChallengeContext();
+
     return (
-        <button className="flashlight-section" onClick={handleFlashlightClick}>
+        <button className="flashlight-section" onClick={activateFlashlight}>
             <div className="flashlight-action">
                 <FlashlightIcon />
                 <div className="action-text">Reveal · 5s</div>
